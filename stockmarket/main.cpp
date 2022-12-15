@@ -1,8 +1,11 @@
 // Project created by Kevin(Phu) Le
 
-#include <iostream>
+#include "common.h"
 
 int main() {
-	std::cout << "This is the start of the Stock Market Project" << std::endl;
+	std::cout << "Stock Market Initiating" << std::endl;
+	std::cout << "Creating an empty account now...\n";
+	Account newAcc;
+	std::cout << "NewAcc: " << std::to_string(newAcc.getNumStks()) << std::endl;
 	return 0;
-}
+}	
