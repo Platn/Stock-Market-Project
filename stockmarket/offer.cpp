@@ -24,13 +24,13 @@
     }
 
     /* Get Helper Functions */
-    std::string Offer::getAccName() {
-        return this->accName;
+    std::string Offer::getAccName() const {
+        return accName;
     }
-    int Offer::getNumStks() {
-        return this->numStks;
+    int Offer::getNumStks() const{
+        return numStks;
     }
-    float Offer::getPrice() {
-        return this->price;
+    float Offer::getPrice() const{
+        return price;
     }
     

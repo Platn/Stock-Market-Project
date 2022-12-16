@@ -3,13 +3,11 @@
 #include "common.h"
 
 class Offer { // An Offer can be either a buyer or seller
-    private:
+    protected:
         std::string accName;
         int numStks;
         float price;
-        
     public:
-    
     Offer(); // Default Constructor
     Offer(std::string name, int numOfStks, float stkPrice); // Overloaded Constructor
 
@@ -20,9 +18,9 @@ class Offer { // An Offer can be either a buyer or seller
     void setB_S(bool B_S);
 
     /* Get Helper Functions */
-    std::string getAccName();
-    int getNumStks();
-    float getPrice();
+    std::string getAccName() const;
+    int getNumStks() const;
+    float getPrice() const;
 
 };
 
