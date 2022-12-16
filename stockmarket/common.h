@@ -3,6 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include "account.h"
+#include "offer.h"
 
 #endif // COMMON_H
