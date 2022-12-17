@@ -2,18 +2,19 @@
     
     /* Constructors*/
     Offer::Offer(){ // Empty Constructor
-        this->accName = "";
         this->numStks = 0;
         this->price = 0.0;
+        this->time = -1;
     } 
-    Offer::Offer(std::string name, int numOfStks, float stkPrice){ // Overloaded constructor
+    Offer::Offer(int numOfStks, float stkPrice, int transTime){ // Overloaded constructor
         this->numStks = numOfStks;
-        this->accName = name;
         this->price = stkPrice;
+        this->time = transTime;
     }
 
     /* Set Helper Functions */
-    void Offer::setAccName(std::string name) { // Offer Name
+
+    void Offer::setAccName(std::string name){
         this->accName = name;
     }
     void Offer::setNumStks(int numOfStks) { // Number of Stocks
@@ -22,15 +23,21 @@
     void Offer::setPrice(float stkPrice) { // Stock Price
         this->price = stkPrice;
     }
+    void Offer::setTime(int transTime) {
+        this->time = transTime;
+    }
 
     /* Get Helper Functions */
     std::string Offer::getAccName() const {
-        return accName;
+        return this->accName;
     }
     int Offer::getNumStks() const{
-        return numStks;
+        return this->numStks;
     }
     float Offer::getPrice() const{
-        return price;
+        return this->price;
+    }
+    int Offer::getTime() const {
+        return this->time;
     }
     
