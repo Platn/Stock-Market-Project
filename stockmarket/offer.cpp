@@ -6,7 +6,7 @@
         this->price = 0.0;
         this->time = -1;
     } 
-    Offer::Offer(int numOfStks, float stkPrice, int transTime){ // Overloaded constructor
+    Offer::Offer(int numOfStks, int stkPrice, int transTime){ // Overloaded constructor
         this->numStks = numOfStks;
         this->price = stkPrice;
         this->time = transTime;
@@ -20,7 +20,7 @@
     void Offer::setNumStks(int numOfStks) { // Number of Stocks
         this->numStks = numOfStks;
     }
-    void Offer::setPrice(float stkPrice) { // Stock Price
+    void Offer::setPrice(int stkPrice) { // Stock Price
         this->price = stkPrice;
     }
     void Offer::setTime(int transTime) {
@@ -34,7 +34,7 @@
     int Offer::getNumStks() const{
         return this->numStks;
     }
-    float Offer::getPrice() const{
+    int Offer::getPrice() const{
         return this->price;
     }
     int Offer::getTime() const {

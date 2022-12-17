@@ -6,7 +6,6 @@ template <typename T> struct Node {
     public:
     T* nextNode;
 
-    bool LinkedList<T> operator<(const LinkedList<T>&,const LinkedList<T>&);
 };
 
 
@@ -16,12 +15,23 @@ template <typename T> class LinkedList {
     Node<T>* bHead;
     Node<T>* bTail;
     public:
+    
+    
     LinkedList();
-    LinkedList(Node<T>*){} // Overloaded constructor
+    LinkedList(Node<T>*); // Overloaded constructor
 
     void addToList(Node<T>*);
     void rmvFrmList(Node<T>*);
     Node<T>* findNode(Node<T>*);
+    // template <typename Compare>
+    // void sort(Compare compare) {
+        
+    // }
+    // void sort() {this->sort(std::less<T>());}
+
+    bool lessThan(int const& val1, int const& val2);
+
+
 };
 
 template <typename T> LinkedList<T>::LinkedList(){}
@@ -37,14 +47,34 @@ template <typename T> void LinkedList<T>::addToList(Node<T>* newNode){
     while(true) {
         if(trave->nextNode == NULL) {
             prev->nextNode = newNode;
+            break;
         }
-        else if(trave->)
+        else if(lessThan(newNode,trave)){ // If newNode is less than traverser
+            if (trave == this->bHead) { // and traverser is the head
+                newNode->nextNode = trave;
+                bHead = newNode;
+            } else {
+                /* Set our previous node to the newNode, set the newNode's
+                ** nextNode to traverser
+                */
+                prev->nextNode = newNode;
+                newNode->nextNode = trave;
+            }
+            break;
+        }
+        // Move the values forward if none of the above occurs.
+        prev->trave;
+        trave = trave->nextNode;
     }
 }
-template <typename T> bool operator>=(const LinkedList<T>& val1,const LinkedList<T>& val2){
-
+template <typename T> bool LinkedList<T>::lessThan(int const &val1, int const &val2){
+    if (val1 <= val2) {
+        return true;
+    }
+    else{
+        return false;
+    }
 }
-
 
 
 class Buyer : public Offer {
