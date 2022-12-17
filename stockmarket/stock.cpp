@@ -9,21 +9,21 @@ Stock::Stock(std::string name) {
 }
 
 
-void Stock::addToBList(Buyer* newBuy) {
+void Stock::addBuy(Buyer* newBuy) {
     
     // Insert vector lambda sort function here
 }
 
-void Stock::addToSList(Seller* newSale) {
+void Stock::addSell(Seller* newSale) {
 
     // Insert vector lambda sort function here.
 }
 
-void Stock::rmvFromBList(Buyer* buyer) {
+void Stock::rmvBuy(Buyer* buyer) {
     // Insert vector find function here, or just do a remove on vector?
 }
 
-void Stock::rmvFromSList(Seller* seller) {
+void Stock::rmvSell(Seller* seller) {
     // Insert vector find function here, or just do a remove on vector?
     
 }

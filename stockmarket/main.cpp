@@ -12,9 +12,6 @@ int main() {
 	std::cout << "Buyer Stocks: " << std::to_string(newBuy.getNumStks()) << std::endl;
 	std::string fileName = "./nasdaq_Dec16_2022.csv";
 	std::cout << "Reading from file: " << fileName << "..." << std::endl;
-	
-
-	
 
 	return 0;
 }	
