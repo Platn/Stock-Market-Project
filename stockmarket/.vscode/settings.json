@@ -60,6 +60,8 @@
         "__node_handle": "cpp",
         "cmath": "cpp",
         "optional": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "sstream": "cpp",
+        "filesystem": "cpp"
     }
 }

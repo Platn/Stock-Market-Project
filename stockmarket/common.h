@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <unordered_map>
 #include <typeinfo>
 
@@ -11,6 +10,5 @@
 #include "stock.h"
 #include "linkedlist.h"
 #include "account.h"
-
 
 #endif // COMMON_H

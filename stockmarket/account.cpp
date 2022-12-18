@@ -2,7 +2,11 @@
 
 Account::Account(){}
 
-void Account::addBuyOffer(std::string stkName, Buyer* bOffer){
+Account::Account(std::string name) {
+    this->accName = name;
+}
+
+void Account::mapBuyOffer(std::string stkName, Buyer* bOffer){
     auto search = stkMap.find(stkName);
     if(search != stkMap.end()) { // Exists
         std::cout << stkName << " was found." << std::endl;
@@ -18,12 +22,10 @@ void Account::addBuyOffer(std::string stkName, Buyer* bOffer){
     }
 }
 
-void Account::addSellOffer(std::string stkName, Seller* sOffer){
+void Account::mapSellOffer(std::string stkName, Seller* sOffer){
     auto search = stkMap.find(stkName);
-    // std::cout << typeid(search).name() << std::endl;
     if(search != stkMap.end()) { // Exists
         std::cout << stkName << " was found." << std::endl;
-        
         search->second->addSell(sOffer);
     }
     else { // Stock was not found.
@@ -37,6 +39,7 @@ void Account::addSellOffer(std::string stkName, Seller* sOffer){
 }
 
 void rmvBOffer(std::string, Buyer*) {
+
 }
 
 void rmvSOffer(std::string, Seller*) {
@@ -49,4 +52,17 @@ void Account::setAccName(std::string name) {
 
 std::string Account::getAccName() const {
     return this->accName;
+}
+
+void Account::addStock(Stock* newStock) { // Only used for Stock Market creation
+    std::pair<std::string,Stock*> stkNode(newStock->getStkSym(),newStock);
+    this->stkMap.insert(stkNode);
+}
+
+Stock* Account::findStock(std::string stkName) {
+    auto search = stkMap.find(stkName);
+    if (stkMap.find(stkName) == stkMap.end()) { // Stock not found
+        std::cout << "Stock not found" << std::endl;
+    }
+    return search->second;
 }
