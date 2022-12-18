@@ -4,7 +4,7 @@
 
 class Offer { // An Offer can be either a buyer or seller
     protected:
-        std::string accName;
+        std::string stkName;
         int numStks;
         int price;
         int time;
@@ -13,13 +13,13 @@ class Offer { // An Offer can be either a buyer or seller
     Offer(int , int ,int); // Overloaded Constructor
 
     /* Set Helper Functions */
-    void setAccName(std::string);
+    void setStkName(std::string);
     void setNumStks(int);
     void setPrice(int);
     void setTime(int);
 
     /* Get Helper Functions */
-    std::string getAccName() const;
+    std::string getStkName() const;
     int getNumStks() const;
     int getPrice() const;
     int getTime() const;

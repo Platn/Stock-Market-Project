@@ -10,7 +10,7 @@ Stock::Stock(std::string name) {
 
 
 void Stock::addBuy(Buyer* newBuy) {
-    
+    bHead.addToList(newBuy);
     // Insert vector lambda sort function here
 }
 

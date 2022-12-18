@@ -31,7 +31,7 @@ class Stock {
     void rmvBuy(Buyer*);
     void rmvSell(Seller*);
 
-    // findBuyer() will be used in removeBList?    
+    // findBuyer() will be used in removeBList?
     // void findBuyer(Buyer*);
 };
 

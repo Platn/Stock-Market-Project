@@ -14,8 +14,8 @@
 
     /* Set Helper Functions */
 
-    void Offer::setAccName(std::string name){
-        this->accName = name;
+    void Offer::setStkName(std::string name){
+        this->stkName = name;
     }
     void Offer::setNumStks(int numOfStks) { // Number of Stocks
         this->numStks = numOfStks;
@@ -28,8 +28,8 @@
     }
 
     /* Get Helper Functions */
-    std::string Offer::getAccName() const {
-        return this->accName;
+    std::string Offer::getStkName() const {
+        return this->stkName;
     }
     int Offer::getNumStks() const{
         return this->numStks;
