@@ -54,10 +54,11 @@ int main() {
 		getline(buffer,token,','); // Get Sector
 		getline(buffer,token,','); // Get Industry
 		stkMkt.addStock(newStock); // Createstock requires the price to be available. But for something like 
-		// newStock = NULL;
+		newStock = NULL;
 	}
 	
 	std::cout << "Stock: " << stkMkt.findStock("ZYXI")->getLastPrice() << std::endl;
+	
 
 	return 0;
 }

@@ -7,7 +7,12 @@ class Customer : public Account {
 
     public:
     Customer();
+    Customer(std::string accName);
+    
+    void addBOffer(std::string, Buyer*);
+    void addSOffer(std::string, Seller*);
 
+    
     
     
 };

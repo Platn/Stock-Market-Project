@@ -11,5 +11,5 @@
 #include "linkedlist.h"
 #include "account.h"
 #include "market.h"
-
+#include "customer.h"
 #endif // COMMON_H

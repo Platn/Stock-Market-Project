@@ -4,7 +4,7 @@
 
 class Market : public Account {
     private:
-    // Each account will contain a hashmap that links the stockname to the its own Stock object
+    std::unordered_map<std::string,Customer*> customList;
     int offerNum;
     public:
     Market();
@@ -25,6 +25,9 @@ class Market : public Account {
 
     void incOfferNum();
     int getOfferNum();
+
+    void addCustomer(Customer*);
+    Customer* getCustomer(std::string);
 };
 
 #endif
