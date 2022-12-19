@@ -13,12 +13,14 @@ int convStrDecToInt(std::string input) {
 int main() {
 	std::cout << "Stock Market Initiating" << std::endl;
 	std::cout << "Creating Stock Market account now...\n";
-	// Offer newOffer;
-	// Buyer newBuy;
-	// std::cout << "NewAcc: " << std::to_string(newBuy.getNumStks()) << std::endl;
-	// newBuy.setNumStks(1);
-	// std::cout << "Buyer Stocks: " << std::to_string(newBuy.getNumStks()) << std::endl;
-	Account stkMkt("Stock Market");
+	Offer newOffer;
+	Buyer newBuy;
+	std::cout << "NewAcc: " << std::to_string(newBuy.getNumStks()) << std::endl;
+	newBuy.setNumStks(1);
+	std::cout << "Buyer Stocks: " << std::to_string(newBuy.getNumStks()) << std::endl;
+	newBuy.setID(12345);
+	std::cout << "Buyer ID: " << std::to_string(newBuy.getID()) << std::endl;
+	Market stkMkt("Stock Market");
 	std::string fileName = "./nasdaq_Dec16_2022.csv";
 	std::cout << "Reading from file: " << fileName << "..." << std::endl;
 	std::ifstream file(fileName);
@@ -33,9 +35,8 @@ int main() {
 	std::getline(buffer,token,'\n'); // Take out the initial line
 	Stock* newStock;
 	while(std::getline(buffer,token,'\n')){
-
 		getline(buffer,token, ','); // Get Symbol
-		std::cout << token << std::endl;
+		// std::cout << token << std::endl;
 		newStock = new Stock(token);
 
 		getline(buffer,token,','); // Get Name
@@ -43,7 +44,7 @@ int main() {
 
 		getline(buffer,token,','); // Get Last Sale
 		newStock->setLastPrice(convStrDecToInt(token)); // Store last price
-		std::cout << convStrDecToInt(token) << std:: endl;
+		// std::cout << convStrDecToInt(token) << std:: endl;
 		getline(buffer,token,','); // Get Net Change
 		getline(buffer,token,','); // Get % Change
 		getline(buffer,token,','); // Get Market Change
@@ -56,7 +57,8 @@ int main() {
 		newStock = NULL;
 	}
 
-	std::cout << "Stock: " << stkMkt.findStock("AAPL")->getLastPrice() << std::endl;
+	std::cout << "Stock: " << stkMkt.findStock("ZYXI")->getLastPrice() << std::endl;
+	
 	// Price is fine, I think that having each of the offers have the name inside of them might be excessive, but we can use it to debug.
 	
 

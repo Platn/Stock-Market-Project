@@ -27,6 +27,7 @@ class Stock {
     /* Helper Functions*/
     void setStkSym(std::string);
     std::string getStkSym() const;
+
     void addBuy(Buyer*);
     void addSell(Seller*);
 
@@ -36,8 +37,6 @@ class Stock {
     void rmvBuy(Buyer*);
     void rmvSell(Seller*);
 
-    // findBuyer() will be used in removeBList?
-    // void findBuyer(Buyer*);
 };
 
 #endif // STOCK_H

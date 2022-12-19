@@ -21,9 +21,7 @@ template <typename T> bool Node<T>::operator<(Node<T> const &n) {
     }
 }
 
-template <typename T> inline Node<T>::Node(){
-    
-}
+template <typename T> inline Node<T>::Node(){}
 template <typename T> inline Node<T>::Node(T input){
     this->data = input;
 }
@@ -53,30 +51,47 @@ template <typename T> inline void LinkedList<T>::addToList(T item){
         this->head = newNode;
         return;
     }
-    Node<T>* trave = this->head;
+    Node<T>* trvsr = this->head;
     Node<T>* prev = this->head;
     while(true) {
-        if(trave->nextNode == NULL) {
+        if(trvsr->nextNode == NULL) {
             prev->nextNode = newNode;
             break;
         }
-        else if(newNode < trave){ // If newNode is less than traverser
-            if (trave == this->head) { // and traverser is the head
-                newNode->nextNode = trave;
+        else if(newNode < trvsr){ // If newNode is less than traverser
+            if (trvsr == this->head) { // and traverser is the head
+                newNode->nextNode = trvsr;
                 head = newNode;
             } else {
                 /* Set our previous node to the newNode, set the newNode's
                 ** nextNode to traverser
                 */
                 prev->nextNode = newNode;
-                newNode->nextNode = trave;
+                newNode->nextNode = trvsr;
             }
             break;
         }
         // Move the values forward if none of the above occurs.
-        prev = prev->nextNode;
-        trave = trave->nextNode;
+        prev = trvsr;
+        trvsr = trvsr->nextNode;
     }
+}
+
+template <typename T> inline void LinkedList<T>::rmvFrmList(T item) {
+    std::cout << "rmvFromList: " << std::endl;
+    Node<T>* trvsr = this->head;
+    Node<T>* prev = trvsr;
+    
+    while(trvsr != NULL) {
+        if(trvsr->data->getID() == item->getID()) {
+            prev->nextNode = trvsr->nextNode; // Drop the node.
+            std::cout << "Item removed." << std::endl;
+            return;
+        }
+        prev = trvsr;
+        trvsr = trvsr->nextNode;
+    }
+    std::cout << "Node not found." << std::endl;
 }
 
 #endif

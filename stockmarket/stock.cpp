@@ -3,11 +3,9 @@
 Stock::Stock() {
     stkSym = "";
 }
-
 Stock::Stock(std::string symbol) {
     stkSym = symbol;
 }
-
 void Stock::setStkSym(std::string symbol) {
     this->stkSym = symbol;
 }
@@ -25,16 +23,13 @@ void Stock::addSell(Seller* newSale) {
 void Stock::setLastPrice(int price) {
     this->lastPrice = price;
 }
-int Stock::getLastPrice() const{
+int Stock::getLastPrice() const {
     return this->lastPrice;
 }
 
 void Stock::rmvBuy(Buyer* buyer) {
-    // Insert vector find function here, or just do a remove on vector?
+    this->bHead.rmvFrmList(buyer);
 }
 void Stock::rmvSell(Seller* seller) {
-    // Insert vector find function here, or just do a remove on vector?
-    
+    this->sHead.rmvFrmList(seller);
 }
-
-
