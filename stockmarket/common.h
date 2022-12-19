@@ -10,5 +10,6 @@
 #include "stock.h"
 #include "linkedlist.h"
 #include "account.h"
+#include "market.h"
 
 #endif // COMMON_H
