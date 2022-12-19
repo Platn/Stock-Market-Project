@@ -50,6 +50,7 @@ void Account::rmvSOffer(std::string stkSym, Seller* sOffer){
 }
 Stock* Account::findStock(std::string stkName) {
     auto search = stkMap.find(stkName);
+    std::cout << "Inside findStock: ";
     if (stkMap.find(stkName) == stkMap.end()) { // Stock not found
         std::cout << "Stock not found." << std::endl;
         return NULL;

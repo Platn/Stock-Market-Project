@@ -44,7 +44,7 @@ int main() {
 
 		getline(buffer,token,','); // Get Last Sale
 		newStock->setLastPrice(convStrDecToInt(token)); // Store last price
-		// std::cout << convStrDecToInt(token) << std:: endl;
+		std::cout << convStrDecToInt(token) << std:: endl;
 		getline(buffer,token,','); // Get Net Change
 		getline(buffer,token,','); // Get % Change
 		getline(buffer,token,','); // Get Market Change
@@ -54,20 +54,10 @@ int main() {
 		getline(buffer,token,','); // Get Sector
 		getline(buffer,token,','); // Get Industry
 		stkMkt.addStock(newStock); // Createstock requires the price to be available. But for something like 
-		newStock = NULL;
+		// newStock = NULL;
 	}
-
+	
 	std::cout << "Stock: " << stkMkt.findStock("ZYXI")->getLastPrice() << std::endl;
-	
-	// Price is fine, I think that having each of the offers have the name inside of them might be excessive, but we can use it to debug.
-	
-
-	
-
-	// Now we just have to 
-
-	
-	
 
 	return 0;
 }

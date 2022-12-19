@@ -36,7 +36,7 @@ class Stock {
 
     void rmvBuy(Buyer*);
     void rmvSell(Seller*);
-
+    
 };
 
 #endif // STOCK_H

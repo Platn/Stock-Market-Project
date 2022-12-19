@@ -4,7 +4,7 @@
 /* Account is used to store an individual person's account information regarding what stocks they have.*/
 
 class Account {
-    private:
+    protected:
     // Each account will contain a hashmap that links the stockname to its own Stock object
     std::string accName;
     std::unordered_map<std::string,Stock*> stkMap;
