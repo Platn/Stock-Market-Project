@@ -1,9 +1,10 @@
-#include "customer.h"
-
+#include "common.h"
+Customer::Customer(){}
 Customer::Customer(std::string accName){
     this->accName = accName;
 }
 void Customer::addBOffer(std::string stkSym, Buyer* bOffer) {
+    std::cout << "Inside Customer addBOffer: " << std::endl;
     auto search = stkMap.find(stkSym);
     if(search != stkMap.end()) { // Exists
         std::cout << stkSym << " was found." << std::endl;
@@ -19,6 +20,7 @@ void Customer::addBOffer(std::string stkSym, Buyer* bOffer) {
     }
 }
 void Customer::addSOffer(std::string stkSym, Seller* sOffer) {
+    std::cout << "Inside Customer addSOffer: " << std::endl;
     auto search = stkMap.find(stkSym);
     if(search != stkMap.end()) { // Exists
         std::cout << stkSym << " was found." << std::endl;

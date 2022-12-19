@@ -8,10 +8,27 @@ Market::Market(std::string name) {
     this->accName = name;
     this->offerNum = 0;
 }
-// void rmvBOffer(std::string, Buyer*) {
+void Market::addBOffer(std::string stkSym, Buyer* bOffer){
+    auto search = this->stkMap.find(stkSym);
+    if (search != this->stkMap.find(stkSym)){
+        search->second->addBuy(bOffer);
+    }
+}
 
+void Market::addSOffer(std::string stkSym, Seller* sOffer){
+    std::cout << "Market AddSOffer" << std::endl;
+    auto search = this->stkMap.find(stkSym);
+    if (search != this->stkMap.find(stkSym)){
+        std::cout << "Adding sell offer" << std::endl;
+        search->second->addSell(sOffer);
+        return;
+    }
+    std::cout << "AddSOffer not found" << std::endl;
+}
+// void Market::rmvBOffer(std::string stkSym, Buyer* bOffer) {
+//     std::cout << "Market rmvBOffer" << std::endl;
 // }
-// void rmvSOffer(std::string, Seller*) {
+// void Market::rmvSOffer(std::string stkSym, Seller*sOffer) {
 
 // }
 void Market::setAccName(std::string name) {
@@ -47,4 +64,5 @@ Customer* Market::getCustomer(std::string accName) {
         return search->second;
     }
     std::cout << "was not found" << std::endl;
+    return NULL;
 }

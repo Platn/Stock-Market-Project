@@ -9,11 +9,8 @@ class Customer : public Account {
     Customer();
     Customer(std::string accName);
     
-    void addBOffer(std::string, Buyer*);
-    void addSOffer(std::string, Seller*);
-
-    
-    
+    void  addBOffer(std::string, Buyer*);
+    void  addSOffer(std::string, Seller*);
     
 };
 #endif

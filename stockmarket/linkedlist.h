@@ -2,7 +2,6 @@
 #define LINKEDLIST_H
 #include "common.h"
 
-
 template <typename T> struct Node {
     public:
     Node<T>* nextNode;
@@ -36,6 +35,7 @@ template <typename T> class LinkedList {
     void addToList(T);
     void rmvFrmList(T);
     Node<T>* findNode(T);
+    
 
     bool lessThan(int const& val1, int const& val2);
 

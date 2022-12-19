@@ -57,7 +57,11 @@ int main() {
 		newStock = NULL;
 	}
 	
-	std::cout << "Stock: " << stkMkt.findStock("ZYXI")->getLastPrice() << std::endl;
+	// std::cout << "Stock: " << stkMkt.findStock("ZYXI")->getLastPrice() << std::endl;
+	std::cout << "Stock symbols have been loaded in." << std::endl;
+
+	
+
 	
 
 	return 0;
