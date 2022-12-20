@@ -3,6 +3,7 @@
 #define STOCK_H
 #include "common.h"
 #include "linkedlist.h"
+#include "offer.h"
 
 class Buyer : public Offer {
 	public:

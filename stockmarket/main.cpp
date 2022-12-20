@@ -4,12 +4,55 @@
 #include <sstream>
 #include <fstream>
 #include <stdlib.h>
-#include <time.h>
+#include <random>
+#include "stock.h"
+#include "market.h"
 
 int convStrDecToInt(std::string input) {
 	float tempF = std::stof(input);
 	int convInt = (int)(tempF * 100);
 	return convInt;
+}
+
+void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
+	/* Actual RNG Algorithm*/
+	// std::random_device rd;
+	// std::mt19937 gen(rd());
+	// std::uniform_int_distribution<> distr(0,symPrice->size());
+	// std::cout << distr(gen) << std::endl;
+	// std::cout << (symPrice.at(rnd)).getStkName() << std::endl;
+	
+	/* Controlled Algorithm */
+	// int range = max - min + 1;
+	// int num = rand() % range + min;
+	int stkRange = symPrice->size() - 0 + 1;
+	int stkNum = rand() % stkRange + 0;
+	std::cout << "Symbol: " << symPrice->at(stkNum)->getStkSym() << std::endl;
+	int offerRange = 500 - 100 + 1;
+	int offerNum = rand() % offerRange + 100;
+	std::cout <<  "Number of Offers: " << offerNum << std::endl;
+	
+	int accRange = 10 - 3 + 1;
+	int accNum = rand() % accRange + 0;
+	std::cout << "Number of Accounts: " << accNum << std::endl;
+	// Customer* newCustomer;
+	// std::string customerName = "Customer";
+	// for(int i = 0; i < accNum; i++) {
+	// 	newCustomer = new Customer(customerName + std::to_string(i));
+	// 	stkMkt->addCustomer(newCustomer);
+	// 	std::cout << stkMkt->getCustomer(customerName)->getAccName() << std::endl;
+	// }
+
+	/* Distribute the number of values*/
+	int offerPrice;
+	int priceRange = 10 - 0 + 1;
+	int origPrice = symPrice->at(stkNum)->getLastPrice();
+	for(int i = 0; i <= 10; i++) {
+		// We need the price distribution for each of the stocks
+		offerPrice = origPrice + origPrice / (rand() % priceRange);
+	}
+	
+
 }
 
 int main() {
@@ -35,8 +78,8 @@ int main() {
 	std::getline(buffer,token,'\n'); // Take out the initial line
 	Stock* newStock;
 	int stkIndex = 0;
-	Market stkMkt("Stock Market");
-	std::unordered_map<int,Stock*> symPrice; // Used for RNG generation of values
+	Market* stkMkt = new Market("Stock Market");
+	std::vector<Stock*>* symPrice = new std::vector<Stock*>; // Used for RNG generation of values
 
 	while(std::getline(buffer,token,'\n')){
 		getline(buffer,token, ','); // Get Symbol
@@ -57,8 +100,8 @@ int main() {
 		getline(buffer,token,','); // Get Volume
 		getline(buffer,token,','); // Get Sector
 		getline(buffer,token,','); // Get Industry
-		stkMkt.addStock(newStock); // Createstock requires the price to be available. But for something like
-		symPrice.insert(std::make_pair(stkIndex,newStock));
+		stkMkt->addStock(newStock); // Createstock requires the price to be available. But for something like
+		symPrice->push_back(newStock);
 		newStock = NULL;
 	}
 	
@@ -66,10 +109,8 @@ int main() {
 	std::cout << "Stock symbols have been loaded in." << std::endl;
 	// We need to create the random number generator now. 
 	srand(0);
-	// srand(time(0));
-	// std::cout << "Seed: " << time(0) << endl;
-	int rnd = rand();
-	std::cout << "Random Number: " << rnd << std::endl;
+	genRandOffer(symPrice, stkMkt);
+	
 	
 
 	return 0;

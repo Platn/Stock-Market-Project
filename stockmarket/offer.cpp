@@ -1,4 +1,4 @@
-   #include "common.h"
+   #include "offer.h"
     
     /* Constructors*/
     Offer::Offer(){ // Empty Constructor

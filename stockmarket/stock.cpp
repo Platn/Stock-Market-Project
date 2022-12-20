@@ -1,4 +1,4 @@
-#include "common.h"
+#include "stock.h"
 
 Stock::Stock() {
     stkSym = "";

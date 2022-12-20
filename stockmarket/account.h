@@ -1,7 +1,8 @@
-
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 #include "common.h"
+#include "stock.h"
+
 /* Account is used to store an individual person's account information regarding what stocks they have.*/
 
 class Account {

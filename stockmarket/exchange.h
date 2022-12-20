@@ -1,6 +1,8 @@
 #ifndef EXCHANGE_H
 #define EXCHANGE_H
 #include "common.h"
+#include "exchange.h"
+#include "stock.h"
 
 class Exchange {
     private:
@@ -17,7 +19,6 @@ class Exchange {
     std::string getStkSym() const;
     Buyer* getBOffer();
     Seller* getSOffer();
-    
 };
 
 #endif

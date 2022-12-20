@@ -1,4 +1,4 @@
-#include "common.h"
+#include "customer.h"
 Customer::Customer(){}
 Customer::Customer(std::string accName){
     this->accName = accName;

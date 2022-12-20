@@ -51,7 +51,7 @@ int Market::getOfferNum(){
     return this->offerNum;
 }
 void Market::addCustomer(Customer* customer) {
-    std::cout << "Add Customer" << std::endl;
+    std::cout << "Market Add Customer" << std::endl;
     this->customList.insert(std::make_pair(customer->getAccName(), customer));
 }
 
@@ -60,9 +60,9 @@ Customer* Market::getCustomer(std::string accName) {
     std::cout << "Inside Market Get Customer: " << std::endl;
     std::cout << accName;
     if(search != this->customList.end()){
-        std::cout << " was found" << std::endl;
+        std::cout << " was found." << std::endl;
         return search->second;
     }
-    std::cout << "was not found" << std::endl;
+    std::cout << " was not found." << std::endl;
     return NULL;
 }
