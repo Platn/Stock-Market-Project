@@ -8,7 +8,7 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 // "*.cpp",
-                "account.cpp","customer.cpp", "main.cpp","market.cpp","offer.cpp","stock.cpp", "transaction.cpp",
+                "account.cpp","customer.cpp","exchange.cpp","main.cpp","market.cpp","offer.cpp","stock.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

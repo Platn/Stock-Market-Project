@@ -3,6 +3,8 @@
 #include "common.h"
 #include <sstream>
 #include <fstream>
+#include <stdlib.h>
+#include <time.h>
 
 int convStrDecToInt(std::string input) {
 	float tempF = std::stof(input);
@@ -17,11 +19,7 @@ int main() {
 	Buyer newBuy;
 	std::cout << "NewAcc: " << std::to_string(newBuy.getNumStks()) << std::endl;
 	newBuy.setNumStks(1);
-	std::cout << "Buyer Stocks: " << std::to_string(newBuy.getNumStks()) << std::endl;
-	newBuy.setID(12345);
-	std::cout << "Buyer ID: " << std::to_string(newBuy.getID()) << std::endl;
-	Market stkMkt("Stock Market");
-	std::unordered_map<std::string,int> symPrice;
+
 	std::string fileName = "./nasdaq_Dec16_2022.csv";
 	std::cout << "Reading from file: " << fileName << "..." << std::endl;
 	std::ifstream file(fileName);
@@ -29,12 +27,17 @@ int main() {
 		std::cout << "File not found" << std::endl;
 		return 0;
 	}
+
 	std::stringstream buffer;
 	buffer << file.rdbuf();
 	file.close();
 	std::string token;
 	std::getline(buffer,token,'\n'); // Take out the initial line
 	Stock* newStock;
+	int stkIndex = 0;
+	Market stkMkt("Stock Market");
+	std::unordered_map<int,Stock*> symPrice; // Used for RNG generation of values
+
 	while(std::getline(buffer,token,'\n')){
 		getline(buffer,token, ','); // Get Symbol
 		// std::cout << token << std::endl;
@@ -55,13 +58,19 @@ int main() {
 		getline(buffer,token,','); // Get Sector
 		getline(buffer,token,','); // Get Industry
 		stkMkt.addStock(newStock); // Createstock requires the price to be available. But for something like
-		symPrice.insert(std::make_pair(newStock->getStkSym(),newStock->getLastPrice()));
+		symPrice.insert(std::make_pair(stkIndex,newStock));
 		newStock = NULL;
 	}
 	
 	// std::cout << "Stock: " << stkMkt.findStock("ZYXI")->getLastPrice() << std::endl;
 	std::cout << "Stock symbols have been loaded in." << std::endl;
-
+	// We need to create the random number generator now. 
+	srand(0);
+	// srand(time(0));
+	// std::cout << "Seed: " << time(0) << endl;
+	int rnd = rand();
+	std::cout << "Random Number: " << rnd << std::endl;
+	
 
 	return 0;
 }

@@ -2,11 +2,13 @@
 #define MARKET_H
 #include "common.h"
 #include "customer.h"
+
 class Market : public Account {
     private:
+    // std::vector<Exchange*> tList;
     std::unordered_map<std::string,Customer*> customList;
-    std::vector<Transaction*> tList;
     int offerNum;
+    
     public:
     Market();
     Market(std::string);
