@@ -21,6 +21,7 @@ int main() {
 	newBuy.setID(12345);
 	std::cout << "Buyer ID: " << std::to_string(newBuy.getID()) << std::endl;
 	Market stkMkt("Stock Market");
+	std::unordered_map<std::string,int> symPrice;
 	std::string fileName = "./nasdaq_Dec16_2022.csv";
 	std::cout << "Reading from file: " << fileName << "..." << std::endl;
 	std::ifstream file(fileName);
@@ -53,16 +54,14 @@ int main() {
 		getline(buffer,token,','); // Get Volume
 		getline(buffer,token,','); // Get Sector
 		getline(buffer,token,','); // Get Industry
-		stkMkt.addStock(newStock); // Createstock requires the price to be available. But for something like 
+		stkMkt.addStock(newStock); // Createstock requires the price to be available. But for something like
+		symPrice.insert(std::make_pair(newStock->getStkSym(),newStock->getLastPrice()));
 		newStock = NULL;
 	}
 	
 	// std::cout << "Stock: " << stkMkt.findStock("ZYXI")->getLastPrice() << std::endl;
 	std::cout << "Stock symbols have been loaded in." << std::endl;
 
-	
-
-	
 
 	return 0;
 }
