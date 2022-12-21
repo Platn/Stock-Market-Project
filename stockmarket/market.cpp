@@ -1,24 +1,28 @@
 #include "market.h"
 
 Market::Market(){
-    this->offerNum = 0;
+    this->offerNum = -1;
 }
 
 Market::Market(std::string name) {
     this->accName = name;
-    this->offerNum = 0;
+    this->offerNum = -1;
 }
 void Market::addBOffer(std::string stkSym, Buyer* bOffer){
+    std::cout << "Market AddSOffer" << std::endl;
     auto search = this->stkMap.find(stkSym);
-    if (search != this->stkMap.find(stkSym)){
+    if (search != this->stkMap.end()) {
+        std::cout << "Adding sell offer" << std::endl;
         search->second->addBuy(bOffer);
+        return;
     }
+    std::cout << "AddSOffer not found" << std::endl;
 }
 
 void Market::addSOffer(std::string stkSym, Seller* sOffer){
     std::cout << "Market AddSOffer" << std::endl;
     auto search = this->stkMap.find(stkSym);
-    if (search != this->stkMap.find(stkSym)){
+    if (search != this->stkMap.end()) {
         std::cout << "Adding sell offer" << std::endl;
         search->second->addSell(sOffer);
         return;

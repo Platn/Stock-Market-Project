@@ -36,44 +36,37 @@ template <typename T> class LinkedList {
     void rmvFrmList(T);
     Node<T>* findNode(T);
     
-
-    bool lessThan(int const& val1, int const& val2);
+    void print();
 
 };
 
-template <typename T> inline LinkedList<T>::LinkedList(){}
-template <typename T> inline LinkedList<T>::LinkedList(T item){
+template <typename T> LinkedList<T>::LinkedList(){}
+template <typename T> LinkedList<T>::LinkedList(T item){
     this->head = new Node<T>(item);
 }
-template <typename T> inline void LinkedList<T>::addToList(T item){
+template <typename T> void LinkedList<T>::addToList(T item){
     Node<T>* newNode = new Node<T>(item);
-    if(this->head == NULL) {
+    Node<T>* travel = this->head;
+
+    if (travel == NULL) {
         this->head = newNode;
         return;
+    } else if (newNode->data->getPrice() < travel->data->getPrice()) {
+        newNode->nextNode = this->head;
+        return;
     }
-    Node<T>* trvsr = this->head;
-    Node<T>* prev = this->head;
+
     while(true) {
-        if(trvsr->nextNode == NULL) {
-            prev->nextNode = newNode;
+        if (travel->nextNode == NULL) {
+            travel->nextNode = newNode;
             break;
         }
-        else if(newNode < trvsr){ // If newNode is less than traverser
-            if (trvsr == this->head) { // and traverser is the head
-                newNode->nextNode = trvsr;
-                head = newNode;
-            } else {
-                /* Set our previous node to the newNode, set the newNode's
-                ** nextNode to traverser
-                */
-                prev->nextNode = newNode;
-                newNode->nextNode = trvsr;
-            }
+        else if(newNode->data->getPrice() < travel->nextNode->data->getPrice()) {
+            newNode->nextNode = travel->nextNode;
+            travel->nextNode = newNode;
             break;
         }
-        // Move the values forward if none of the above occurs.
-        prev = trvsr;
-        trvsr = trvsr->nextNode;
+        travel = travel->nextNode;
     }
 }
 
@@ -83,8 +76,9 @@ template <typename T> inline void LinkedList<T>::rmvFrmList(T item) {
     Node<T>* prev = trvsr;
     
     while(trvsr != NULL) {
-        if(trvsr->data->getID() == item->getID()) {
+        if(trvsr->data->getID() == item->getID()) { // We might need better checks for this.
             prev->nextNode = trvsr->nextNode; // Drop the node.
+            
             std::cout << "Item removed." << std::endl;
             return;
         }
@@ -94,4 +88,15 @@ template <typename T> inline void LinkedList<T>::rmvFrmList(T item) {
     std::cout << "Node not found." << std::endl;
 }
 
+template <typename T> inline void LinkedList<T>::print() {
+    std::cout << "Print: " << std::endl;
+    Node<T>* travel = this->head;
+    int i = 0;
+    while(travel != NULL){
+        std::cout << travel->data->getID() << ": " << travel->data->getPrice() << std::endl;
+        i++;
+        travel = travel->nextNode;
+    }
+    std::cout << "I: " << i << std::endl;
+}
 #endif

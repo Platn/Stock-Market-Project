@@ -33,3 +33,11 @@ void Stock::rmvBuy(Buyer* buyer) {
 void Stock::rmvSell(Seller* seller) {
     this->sHead.rmvFrmList(seller);
 }
+
+void Stock::printBuy() {
+    this->bHead.print();
+}
+
+void Stock::printSell() {
+    this->sHead.print();
+}

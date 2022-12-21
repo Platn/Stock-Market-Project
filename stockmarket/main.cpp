@@ -9,8 +9,8 @@
 #include "market.h"
 
 int convStrDecToInt(std::string input) {
-	float tempF = std::stof(input);
-	int convInt = (int)(tempF * 100);
+	float convF = std::stof(input);
+	int convInt = (int)(convF * 1000);
 	return convInt;
 }
 
@@ -27,32 +27,80 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 	// int num = rand() % range + min;
 	int stkRange = symPrice->size() - 0 + 1;
 	int stkNum = rand() % stkRange + 0;
-	std::cout << "Symbol: " << symPrice->at(stkNum)->getStkSym() << std::endl;
-	int offerRange = 500 - 100 + 1;
+	std::string currSym = symPrice->at(stkNum)->getStkSym();
+	std::cout << "Symbol: " << currSym << std::endl;
+	int offerRange = 10000 - 100 + 1;
 	int offerNum = rand() % offerRange + 100;
 	std::cout <<  "Number of Offers: " << offerNum << std::endl;
 	
 	int accRange = 10 - 3 + 1;
 	int accNum = rand() % accRange + 0;
 	std::cout << "Number of Accounts: " << accNum << std::endl;
-	// Customer* newCustomer;
-	// std::string customerName = "Customer";
-	// for(int i = 0; i < accNum; i++) {
-	// 	newCustomer = new Customer(customerName + std::to_string(i));
-	// 	stkMkt->addCustomer(newCustomer);
-	// 	std::cout << stkMkt->getCustomer(customerName)->getAccName() << std::endl;
-	// }
+
+	std::cout << "Producing accounts..." << std::endl;
+	Customer* newCustomer;
+	std::string customerName = "Customer";
+	std::string fullName;
+	std::vector<Customer*> cstrList;
+
+	for(int i = 0; i < accNum; i++) {
+		fullName = customerName + std::to_string(i);
+		newCustomer = new Customer(fullName);
+		// newCustomer->setAccName(fullName);
+		// std::cout << "NewCustomer: " << newCustomer->getAccName() << std::endl;
+		stkMkt->addCustomer(newCustomer);
+		cstrList.push_back(newCustomer);
+		std::cout << stkMkt->getCustomer(fullName)->getAccName() << std::endl;
+	}
 
 	/* Distribute the number of values*/
-	int offerPrice;
-	int priceRange = 10 - 0 + 1;
+	int bidPrice;
+	int priceRange = 10;
 	int origPrice = symPrice->at(stkNum)->getLastPrice();
-	for(int i = 0; i <= 10; i++) {
+	Buyer* prodBuy;
+	Seller* prodSell;
+	int rndAcc;
+	int rndAccRange;
+	
+	for(int i = 0; i <= offerNum; i++) { // Percent price changes
 		// We need the price distribution for each of the stocks
-		offerPrice = origPrice + origPrice / (rand() % priceRange);
+		prodBuy = new Buyer();
+		prodSell = new Seller();
+		bidPrice = origPrice + (rand() % priceRange);
+		prodBuy->setStkName(currSym);
+		prodBuy->setPrice(bidPrice);
+		prodBuy->setID(stkMkt->getOfferNum());
+		prodBuy->setTime(0); // Preloaded Examples
+
+		bidPrice = origPrice + (origPrice / (rand() % priceRange));
+		prodSell->setStkName(currSym);
+		prodSell->setPrice(bidPrice);
+		prodSell->setID(stkMkt->getOfferNum());
+		prodSell->setTime(0); // Preloaded Examples
+
+		// Add to each Customer Account
+		rndAccRange = cstrList.size() - 1 - 0 + 1;
+		rndAcc = rand() % rndAccRange + 0;
+		cstrList.at(rndAcc)->addBOffer(prodBuy->getStkName(), prodBuy);
+		cstrList.at(rndAcc)->addSOffer(prodSell->getStkName(), prodSell);
+		stkMkt->addBOffer(currSym, prodBuy);
+		stkMkt->addSOffer(currSym, prodSell);
+		prodBuy = NULL;
+		prodSell = NULL;
 	}
 	
+	// We need to check both cstrlist and stkMarket, below is the debugging to check
+	// for(int i = 0; i < cstrList.size(); i++) {
+	// 	cstrList.at(i)->findStock(currSym)->printBuy();
+	// 	cstrList.at(i)->findStock(currSym)->printSell();
+	// }
+	stkMkt->findStock(currSym)->printBuy();
+	stkMkt->findStock(currSym)->printSell();
 
+
+	
+	newCustomer = NULL;
+	cstrList.empty();
 }
 
 int main() {
@@ -108,7 +156,7 @@ int main() {
 	// std::cout << "Stock: " << stkMkt.findStock("ZYXI")->getLastPrice() << std::endl;
 	std::cout << "Stock symbols have been loaded in." << std::endl;
 	// We need to create the random number generator now. 
-	srand(0);
+	srand(1);
 	genRandOffer(symPrice, stkMkt);
 	
 	
