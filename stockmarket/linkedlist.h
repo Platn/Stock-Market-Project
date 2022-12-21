@@ -93,7 +93,9 @@ template <typename T> inline void LinkedList<T>::print() {
     Node<T>* travel = this->head;
     int i = 0;
     while(travel != NULL){
-        std::cout << travel->data->getID() << ": " << travel->data->getPrice() << std::endl;
+        std::cout << "AccName: " << travel->data->getStkName() << std::endl;
+        std::cout << "ID: " << travel->data->getID() << ": Price: " << travel->data->getPrice()
+         << " Quantity: " << travel->data->getNumStks()  << std::endl;
         i++;
         travel = travel->nextNode;
     }

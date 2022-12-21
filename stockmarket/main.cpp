@@ -55,8 +55,9 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 
 	/* Distribute the number of values*/
 	int bidPrice;
-	int priceRange = 10;
+	
 	int origPrice = symPrice->at(stkNum)->getLastPrice();
+	int priceRange = origPrice - 1 + 1;
 	Buyer* prodBuy;
 	Seller* prodSell;
 	int rndAcc;
@@ -66,17 +67,20 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 		// We need the price distribution for each of the stocks
 		prodBuy = new Buyer();
 		prodSell = new Seller();
-		bidPrice = origPrice + (rand() % priceRange);
+
+		bidPrice = (origPrice + (rand() % priceRange)/2);;
 		prodBuy->setStkName(currSym);
 		prodBuy->setPrice(bidPrice);
 		prodBuy->setID(stkMkt->getOfferNum());
 		prodBuy->setTime(0); // Preloaded Examples
+		prodBuy->setNumStks(rand() % 501);
 
-		bidPrice = origPrice + (origPrice / (rand() % priceRange));
+		bidPrice = (origPrice + (rand() % priceRange)/2);
 		prodSell->setStkName(currSym);
 		prodSell->setPrice(bidPrice);
 		prodSell->setID(stkMkt->getOfferNum());
 		prodSell->setTime(0); // Preloaded Examples
+		prodSell->setNumStks(rand() % 501);
 
 		// Add to each Customer Account
 		rndAccRange = cstrList.size() - 1 - 0 + 1;
