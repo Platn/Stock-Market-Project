@@ -73,14 +73,14 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 		prodBuy->setPrice(bidPrice);
 		prodBuy->setID(stkMkt->getOfferNum());
 		prodBuy->setTime(0); // Preloaded Examples
-		prodBuy->setNumStks(rand() % 501);
+		prodBuy->setNumStks((rand() % 501) + 1);
 
 		bidPrice = (origPrice + (rand() % priceRange)/2);
 		prodSell->setStkName(currSym);
 		prodSell->setPrice(bidPrice);
 		prodSell->setID(stkMkt->getOfferNum());
 		prodSell->setTime(0); // Preloaded Examples
-		prodSell->setNumStks(rand() % 501);
+		prodSell->setNumStks((rand() % 501) + 1);
 
 		// Add to each Customer Account
 		rndAccRange = cstrList.size() - 1 - 0 + 1;

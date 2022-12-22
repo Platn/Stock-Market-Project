@@ -21,6 +21,14 @@ std::string Exchange::getStkSym() const {
 Buyer* Exchange::getBOffer() {
     return this->bOffer;
 }
-Seller* Exchange::getSOffer(){
+Seller* Exchange::getSOffer() {
     return this->sOffer;
+}
+
+void Exchange::setNumStks(int stks) {
+    this->numStks = stks;
+}
+
+void Exchange::setProfit(int value) {
+    this->profit = value; // we might change this later.
 }

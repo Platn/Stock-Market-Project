@@ -9,6 +9,8 @@ class Exchange {
     std::string stkSym;
     Buyer* bOffer;
     Seller* sOffer;
+    int numStks;
+    int profit;
     
     public:
     Exchange();
@@ -19,6 +21,8 @@ class Exchange {
     std::string getStkSym() const;
     Buyer* getBOffer();
     Seller* getSOffer();
+    void setNumStks(int);
+    void setProfit(int);
 };
 
 #endif
