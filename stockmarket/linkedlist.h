@@ -67,7 +67,12 @@ template <typename T> void LinkedList<T>::addToList(T item){
             if (qTravel->nextNode == NULL) {
                 qTravel->nextNode = newNode;
                 return;
-            } else if (newNode->data->getNumStks() >= qTravel->nextNode->data->getNumStks()) {
+            } else if (newNode->data->getPrice() == qTravel->nextNode->data->getPrice() &&
+             newNode->data->getNumStks() >= qTravel->nextNode->data->getNumStks()) {
+                newNode->nextNode = qTravel->nextNode;
+                qTravel->nextNode = newNode;
+                return;
+            } else if (newNode->data->getPrice() != qTravel->nextNode->data->getPrice()) {
                 newNode->nextNode = qTravel->nextNode;
                 qTravel->nextNode = newNode;
                 return;
@@ -91,7 +96,7 @@ template <typename T> void LinkedList<T>::addToList(T item){
             // qTravel cannot be null, we confirm this through travel->data
             // Now we check if the current travel is greater.
             if (newNode->data->getNumStks() > travel->data->getNumStks()) {
-                newNode->nextNode = travel;
+                newNode->nextNode = qTravel;
                 travel = newNode->nextNode;
                 return;
             }
@@ -99,10 +104,15 @@ template <typename T> void LinkedList<T>::addToList(T item){
                 if (qTravel->nextNode == NULL) {
                     qTravel->nextNode = newNode;
                     return;
-                } else if (newNode->data->getNumStks() >= qTravel->nextNode->data->getNumStks()) {
+                } else if (newNode->data->getPrice() == qTravel->nextNode->data->getPrice() &&
+                 newNode->data->getNumStks() >= qTravel->nextNode->data->getNumStks()) {
                     newNode->nextNode = qTravel->nextNode;
                     qTravel->nextNode = newNode;
                     return;
+                } else if (newNode->data->getPrice() != qTravel->nextNode->data->getPrice()) {
+                newNode->nextNode = qTravel->nextNode;
+                qTravel->nextNode = newNode;
+                return;
                 }
                 qTravel = qTravel->nextNode;
             }
