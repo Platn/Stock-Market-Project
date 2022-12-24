@@ -82,13 +82,13 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 		prodSell->setTime(0); // Preloaded Examples
 		prodSell->setNumStks((rand() % 500) + 1);
 
-		// Add to each Customer Account
+		// Add to each Customer Account, used for debugging
 		rndAccRange = cstrList.size() - 1 - 0 + 1;
 		rndAcc = rand() % rndAccRange + 0;
 		cstrList.at(rndAcc)->addBOffer(prodBuy->getStkName(), prodBuy);
 		cstrList.at(rndAcc)->addSOffer(prodSell->getStkName(), prodSell);
 
-		// Add to Stk market
+		// Add to (Stock)Market
 		stkMkt->addBOffer(currSym, prodBuy);
 		stkMkt->addSOffer(currSym, prodSell);
 		prodBuy = NULL;
@@ -100,11 +100,10 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 	// 	cstrList.at(i)->findStock(currSym)->printBuy();
 	// 	cstrList.at(i)->findStock(currSym)->printSell();
 	// }
+	
 	stkMkt->findStock(currSym)->printBuy();
 	stkMkt->findStock(currSym)->printSell();
 
-
-	
 	newCustomer = NULL;
 	cstrList.empty();
 }

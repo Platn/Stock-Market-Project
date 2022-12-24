@@ -14,10 +14,16 @@ std::string Stock::getStkSym() const {
 }
 
 void Stock::addBuy(Buyer* newBuy) {
-    bHead.addToList(newBuy);
+    this->bHead.addToList(newBuy);
 }
 void Stock::addSell(Seller* newSale) {
-    sHead.addToList(newSale);
+    this->sHead.addToList(newSale);
+}
+void Stock::addBuyMax(Buyer* newBuy) {
+    this->bHead.addToListMax(newBuy);
+}
+void Stock::addSellMin(Seller* newSale) {
+    this->sHead.addToListMax(newSale);
 }
 
 void Stock::setLastPrice(int price) {

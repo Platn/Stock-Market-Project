@@ -30,8 +30,13 @@ class Stock {
     void setStkSym(std::string);
     std::string getStkSym() const;
 
+    /* Standard: addBuy() and addSell() are strictly used for non-sorted list. */
     void addBuy(Buyer*);
     void addSell(Seller*);
+
+    /* Debugging: addBuyMax() and addSellMin() are used to easily sort.  */
+    void addBuyMax(Buyer*);
+    void addSellMin(Seller*);
 
     void setLastPrice(int);
     int getLastPrice() const;

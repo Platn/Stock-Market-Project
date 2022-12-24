@@ -28,11 +28,14 @@ template <typename T> inline Node<T>::Node(T input){
 template <typename T> class LinkedList {
     private:
     Node<T>* head;
+    Node<T>* tail; // Only to be used in non-sorted version;
     public:
     LinkedList();
     LinkedList(T); // Overloaded constructor
 
     void addToList(T);
+    void addToListMax(T);
+    void addToListMin(T);
     void rmvFrmList(T);
     Node<T>* findNode(T);
     
@@ -40,11 +43,30 @@ template <typename T> class LinkedList {
 
 };
 
+
+
 template <typename T> LinkedList<T>::LinkedList(){}
 template <typename T> LinkedList<T>::LinkedList(T item){
     this->head = new Node<T>(item);
+    this->tail = head;
 }
-template <typename T> void LinkedList<T>::addToList(T item){
+template <typename T> void LinkedList<T>::addToList(T item) {
+    Node<T>* travel = this->head;
+
+    if (travel == NULL) {
+        this->head = new Node<T>(item);
+        return;
+    }
+
+    while(true) {
+        if(travel->nextNode == NULL) {
+            travel->nextNode = new Node<T>(item);
+            return;
+        }
+        travel = travel->nextNode;
+    }
+}
+template <typename T> void LinkedList<T>::addToListMax(T item){
     Node<T>* newNode = new Node<T>(item);
     Node<T>* travel = this->head;
 
@@ -121,20 +143,100 @@ template <typename T> void LinkedList<T>::addToList(T item){
     }
 }
 
-template <typename T> inline void LinkedList<T>::rmvFrmList(T item) {
-    std::cout << "rmvFromList: " << std::endl;
-    Node<T>* trvsr = this->head;
-    Node<T>* prev = trvsr;
+template<typename T> inline void LinkedList<T>::addToListMin(T item) {
+    std::cout << "Inside addToListMin" << std::endl;
+
+    Node<T>* newNode = new Node<T>(item);
+    Node<T>* travel = this->head;
+
+    if (travel == NULL) {
+        this->head = newNode;
+        return;
+    } else if (newNode->data->getPrice() > travel->data->getPrice()) {
+        newNode->nextNode = this->head;
+        return;
+    } else if (newNode->data->getPrice() == travel->data->getPrice()) {
+        Node<T>* qTravel = travel;
+        // qTravel cannot be null, we confirm this through travel->data
+        // Now we check if the current travel is greater.
+        if (newNode->data->getNumStks() > travel->data->getNumStks()) {
+            newNode->nextNode = travel;
+            travel = newNode->nextNode;
+            return;
+        }
+        while(true) {
+            if (qTravel->nextNode == NULL) {
+                qTravel->nextNode = newNode;
+                return;
+            } else if (newNode->data->getPrice() == qTravel->nextNode->data->getPrice() &&
+             newNode->data->getNumStks() >= qTravel->nextNode->data->getNumStks()) {
+                newNode->nextNode = qTravel->nextNode;
+                qTravel->nextNode = newNode;
+                return;
+            } else if (newNode->data->getPrice() != qTravel->nextNode->data->getPrice()) {
+                newNode->nextNode = qTravel->nextNode;
+                qTravel->nextNode = newNode;
+                return;
+            }
+            qTravel = qTravel->nextNode;
+        }
+    }
+
+    while(true) {
+        if (travel->nextNode == NULL) {
+            travel->nextNode = newNode;
+            break;
+        }
+        else if(newNode->data->getPrice() > travel->nextNode->data->getPrice()) {
+            newNode->nextNode = travel->nextNode;
+            travel->nextNode = newNode;
+            break;
+        }
+        else if(newNode->data->getPrice() == travel->nextNode->data->getPrice()) {
+            Node<T>* qTravel = travel;
+            // qTravel cannot be null, we confirm this through travel->data
+            // Now we check if the current travel is greater.
+            if (newNode->data->getNumStks() > travel->data->getNumStks()) {
+                newNode->nextNode = qTravel;
+                travel = newNode->nextNode;
+                return;
+            }
+            while(true) {
+                if (qTravel->nextNode == NULL) {
+                    qTravel->nextNode = newNode;
+                    return;
+                } else if (newNode->data->getPrice() == qTravel->nextNode->data->getPrice() &&
+                 newNode->data->getNumStks() >= qTravel->nextNode->data->getNumStks()) {
+                    newNode->nextNode = qTravel->nextNode;
+                    qTravel->nextNode = newNode;
+                    return;
+                } else if (newNode->data->getPrice() != qTravel->nextNode->data->getPrice()) {
+                newNode->nextNode = qTravel->nextNode;
+                qTravel->nextNode = newNode;
+                return;
+                }
+                qTravel = qTravel->nextNode;
+            }
+        }
+        travel = travel->nextNode;
+    }
     
-    while(trvsr != NULL) {
-        if(trvsr->data->getID() == item->getID()) { // We might need better checks for this.
-            prev->nextNode = trvsr->nextNode; // Drop the node.
+}
+
+template<typename T> inline void LinkedList<T>::rmvFrmList(T item) {
+    std::cout << "rmvFromList: " << std::endl;
+    Node<T>* travel = this->head;
+    Node<T>* prev = travel;
+    
+    while(travel != NULL) {
+        if(travel->data->getID() == item->getID()) { // We might need better checks for this.
+            prev->nextNode = travel->nextNode; // Drop the node.
             
             std::cout << "Item removed." << std::endl;
             return;
         }
-        prev = trvsr;
-        trvsr = trvsr->nextNode;
+        prev = travel;
+        travel = travel->nextNode;
     }
     std::cout << "Node not found." << std::endl;
 }
