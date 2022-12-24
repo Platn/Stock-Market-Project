@@ -9,25 +9,25 @@ Market::Market(std::string name) {
     this->offerNum = -1;
 }
 void Market::addBOffer(std::string stkSym, Buyer* bOffer){
-    std::cout << "Market AddSOffer" << std::endl;
+    // std::cout << "Market AddSOffer" << std::endl;
     auto search = this->stkMap.find(stkSym);
     if (search != this->stkMap.end()) {
-        std::cout << "Adding sell offer" << std::endl;
+        // std::cout << "Adding sell offer" << std::endl;
         search->second->addBuy(bOffer);
         return;
     }
-    std::cout << "AddSOffer not found" << std::endl;
+    // std::cout << "AddSOffer not found" << std::endl;
 }
 
 void Market::addSOffer(std::string stkSym, Seller* sOffer){
-    std::cout << "Market AddSOffer" << std::endl;
+    // std::cout << "Market AddSOffer" << std::endl;
     auto search = this->stkMap.find(stkSym);
     if (search != this->stkMap.end()) {
-        std::cout << "Adding sell offer" << std::endl;
+        // std::cout << "Adding sell offer" << std::endl;
         search->second->addSell(sOffer);
         return;
     }
-    std::cout << "AddSOffer not found" << std::endl;
+    // std::cout << "AddSOffer not found" << std::endl;
 }
 // void Market::rmvBOffer(std::string stkSym, Buyer* bOffer) {
 //     std::cout << "Market rmvBOffer" << std::endl;
@@ -43,7 +43,7 @@ std::string Market::getAccName() const {
 }
 void Market::addStock(Stock* newStock) { // Only used for Stock Market creation
     std::pair<std::string,Stock*> stkNode(newStock->getStkSym(),newStock);
-    std::cout << "Market AddStock Values: " << newStock->getStkSym() << std::endl;
+    // std::cout << "Market AddStock Values: " << newStock->getStkSym() << std::endl;
     stkMap.insert(stkNode);
 }
 /* incOrderNum() increments the offer number for each offer sent in.*/
@@ -55,18 +55,18 @@ int Market::getOfferNum(){
     return this->offerNum;
 }
 void Market::addCustomer(Customer* customer) {
-    std::cout << "Market Add Customer" << std::endl;
+    // std::cout << "Market Add Customer" << std::endl;
     this->customList.insert(std::make_pair(customer->getAccName(), customer));
 }
 
 Customer* Market::getCustomer(std::string accName) {
     auto search = this->customList.find(accName);
-    std::cout << "Inside Market Get Customer: " << std::endl;
+    // std::cout << "Inside Market Get Customer: " << std::endl;
     std::cout << accName;
     if(search != this->customList.end()){
-        std::cout << " was found." << std::endl;
+        // std::cout << " was found." << std::endl;
         return search->second;
     }
-    std::cout << " was not found." << std::endl;
+    // std::cout << " was not found." << std::endl;
     return NULL;
 }

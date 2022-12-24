@@ -13,31 +13,31 @@ std::string Account::getAccName() const{
     return this->accName;
 }
 void Account::addBOffer(std::string stkSym, Buyer* bOffer){
-    std::cout << "Inside Account addBOffer: " << std::endl;
+    // std::cout << "Inside Account addBOffer: " << std::endl;
     Stock* symbol = findStock(stkSym);
     bOffer->setStkName(stkSym);
-    std::cout << "Inside addBOffer: ";
+    // std::cout << "Inside addBOffer: ";
     if (symbol != NULL) {
-        std::cout << "Stock found." << std::endl;
+        // std::cout << "Stock found." << std::endl;
         symbol->addBuy(bOffer);
     }
 }
 void Account::addSOffer(std::string stkSym, Seller* sOffer){
-    std::cout << "Inside Account addBOffer: " << std::endl;
+    // std::cout << "Inside Account addBOffer: " << std::endl;
     Stock* symbol = findStock(stkSym);
     sOffer->setStkName(stkSym);
-    std::cout << "Inside addSOffer: ";
+    // std::cout << "Inside addSOffer: ";
     if (symbol != NULL) {
-        std::cout << "Stock found." << std::endl;
+        // std::cout << "Stock found." << std::endl;
         symbol->addSell(sOffer);
     }
 }
 void Account::rmvBOffer(std::string stkSym, Buyer* bOffer){
-    std::cout << "Inside Account rmvBOffer: " << std::endl;
+    // std::cout << "Inside Account rmvBOffer: " << std::endl;
     Stock* symbol = findStock(stkSym);
-    std::cout << "Inside rmvBOffer: ";
+    // std::cout << "Inside rmvBOffer: ";
     if (symbol != NULL) {
-        std::cout << "Stock found." << std::endl;
+        // std::cout << "Stock found." << std::endl;
         symbol->rmvBuy(bOffer);
        // Finish removing
     }
@@ -45,19 +45,19 @@ void Account::rmvBOffer(std::string stkSym, Buyer* bOffer){
     // Does that mean we need to pass in the string removal? We will for now.
 }
 void Account::rmvSOffer(std::string stkSym, Seller* sOffer){
-    std::cout << "Inside Account rmvSOffer: " << std::endl;
+    // std::cout << "Inside Account rmvSOffer: " << std::endl;
     Stock* symbol = findStock(stkSym);
-    std::cout << "Inside rmvSOffer: ";
+    // std::cout << "Inside rmvSOffer: ";
     if (symbol != NULL) {
-        std::cout << "Stock found." << std::endl;
+        // std::cout << "Stock found." << std::endl;
         symbol->rmvSell(sOffer);
     }
 }
 Stock* Account::findStock(std::string stkName) {
-    std::cout << "Inside findStock: " << std::endl;
+    // std::cout << "Inside findStock: " << std::endl;
     auto search = stkMap.find(stkName);
     if (stkMap.find(stkName) == stkMap.end()) { // Stock not found
-        std::cout << "Stock not found." << std::endl;
+        // std::cout << "Stock not found." << std::endl;
         return NULL;
     }
     return search->second;

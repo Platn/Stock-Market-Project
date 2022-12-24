@@ -28,16 +28,16 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 	int stkRange = symPrice->size() - 0 + 1;
 	int stkNum = rand() % stkRange + 0;
 	std::string currSym = symPrice->at(stkNum)->getStkSym();
-	std::cout << "Symbol: " << currSym << std::endl;
+	// std::cout << "Symbol: " << currSym << std::endl;
 	int offerRange = 10000 - 100 + 1;
 	int offerNum = rand() % offerRange + 100;
-	std::cout <<  "Number of Offers: " << offerNum << std::endl;
+	// std::cout <<  "Number of Offers: " << offerNum << std::endl;
 	
 	int accRange = 10 - 3 + 1;
 	int accNum = rand() % accRange + 0;
-	std::cout << "Number of Accounts: " << accNum << std::endl;
+	// std::cout << "Number of Accounts: " << accNum << std::endl;
 
-	std::cout << "Producing accounts..." << std::endl;
+	// std::cout << "Producing accounts..." << std::endl;
 	Customer* newCustomer;
 	std::string customerName = "Customer";
 	std::string fullName;
@@ -50,7 +50,7 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 		// std::cout << "NewCustomer: " << newCustomer->getAccName() << std::endl;
 		stkMkt->addCustomer(newCustomer);
 		cstrList.push_back(newCustomer);
-		std::cout << stkMkt->getCustomer(fullName)->getAccName() << std::endl;
+		// std::cout << stkMkt->getCustomer(fullName)->getAccName() << std::endl;
 	}
 
 	/* Distribute the number of values*/
@@ -145,7 +145,7 @@ int main() {
 
 		getline(buffer,token,','); // Get Last Sale
 		newStock->setLastPrice(convStrDecToInt(token)); // Store last price
-		std::cout << convStrDecToInt(token) << std:: endl;
+		// std::cout << convStrDecToInt(token) << std:: endl;
 		getline(buffer,token,','); // Get Net Change
 		getline(buffer,token,','); // Get % Change
 		getline(buffer,token,','); // Get Market Change
