@@ -8,6 +8,7 @@
 #include "stock.h"
 #include "market.h"
 
+
 int convStrDecToInt(std::string input) {
 	float convF = std::stof(input);
 	int convInt = (int)(convF * 1000);

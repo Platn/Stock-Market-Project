@@ -62,6 +62,7 @@
         "optional": "cpp",
         "unordered_map": "cpp",
         "sstream": "cpp",
-        "filesystem": "cpp"
-    }
+        "filesystem": "cpp",
+        "math" : "cpp"
+    },
 }
