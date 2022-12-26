@@ -43,7 +43,6 @@ void writeMarketFile(Market* stkMkt,std::string stkSym, std::string fileDir) {
 	file.close(); // Always remember to close the file when done.
 	
 }
-
 void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	/* Actual RNG Algorithm*/
 	// std::random_device rd;
@@ -65,7 +64,8 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	
 	int accRange = 15 - 3 + 1;
 	int accNum = (rand() % accRange) + 1;
-	std::cout << "Number of Accounts: " << accNum << std::endl;
+	
+	// std::cout << "Number of Accounts: " << accNum << std::endl;
 
 	// std::cout << "Producing accounts..." << std::endl;
 	Customer* newCustomer;
@@ -207,6 +207,10 @@ int main() {
 	// We need to create the random number generator now. 
 	srand(1);
 	genRandOffer(symPrice, stkMkt);
+	delete symPrice;
+	symPrice = NULL;
+	delete stkMkt;
+	stkMkt = NULL;
 
 	return 0;
 }
