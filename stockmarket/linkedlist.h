@@ -259,7 +259,7 @@ template <typename T> inline void LinkedList<T>::print() {
 
 template<typename T> inline std::string LinkedList<T>::retListInfo() {
     std::string info = "";
-    std::cout << "Return Info" << std::endl;
+    // std::cout << "Return Info" << std::endl;
     Node<T>* travel = this->head;
     info += "StockName,CustomerName,Price,Time,ID\n";
     while(travel != NULL) {

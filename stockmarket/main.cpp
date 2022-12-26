@@ -35,10 +35,11 @@ void writeMarketFile(Market* stkMkt,std::string stkSym, std::string fileDir) {
 	std::string outputBuy = stkInfo->retBuyInfo();
 	std::string outputSell = stkInfo->retSellInfo();
 
-	std::cout << outputBuy << std::endl;
+	// std::cout << outputBuy << std::endl;
 	file << outputBuy;
 
 	stkInfo = NULL;
+	std::cout << "Write Market to file complete." << std::endl;
 	file.close(); // Always remember to close the file when done.
 	
 }
@@ -129,7 +130,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 				prodSell->setID(stkMkt->getOfferNum());
 				prodSell->setTime(rndTime); // Preloaded Examples
 				prodSell->setNumStks((rand() % 500) + 1);
-				prodSell->setCustName("Customer");
+				prodSell->setCustName("Customer" + std::to_string(rndNumAcc));
 				cstrList.at(rndNumAcc)->addSOffer(prodSell->getStkName(), prodSell);
 				stkMkt->addSOffer(currSym, prodSell);
 				prodSell = NULL;
