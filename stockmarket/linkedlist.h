@@ -10,6 +10,7 @@ template <typename T> struct Node {
     Node();
     Node(T);
     bool operator<(Node<T> const &n);
+    ~Node();
 };
 
 template <typename T> bool Node<T>::operator<(Node<T> const &n) {
@@ -25,6 +26,11 @@ template <typename T> inline Node<T>::Node(T input){
     this->data = input;
 }
 
+template <typename T> inline Node<T>::~Node() {
+    this->nextNode = NULL;
+    delete this->data;
+}
+
 template <typename T> class LinkedList {
     private:
     Node<T>* head;
@@ -32,6 +38,8 @@ template <typename T> class LinkedList {
     public:
     LinkedList();
     LinkedList(T); // Overloaded constructor
+    void LLDes(Node<T>*);
+    ~LinkedList();
 
     void addToList(T);
     void addToListMax(T);
@@ -276,4 +284,24 @@ template<typename T> inline std::string LinkedList<T>::retListInfo() {
 
     return info;
 }
+
+template<typename T> inline void LinkedList<T>::LLDes(Node<T>* currNode) {
+    if(currNode == NULL) {
+        return;
+    }
+    else {
+        LLDes(currNode->nextNode);
+        delete currNode;
+    }
+}
+
+template<typename T> inline LinkedList<T>::~LinkedList() {
+    
+    LLDes(this->head);
+    LLDes(this->tail);
+}
+
+
+
+
 #endif
