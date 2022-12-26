@@ -8,8 +8,7 @@
                 "/Applications/Xcode.app/Contents/Developer/*"
             ],
             "defines": [
-                "__LITTLE_ENDIAN__",
-                "__MATH__"
+               
             ],
             "macFrameworkPath": [
                 "/System/Library/Frameworks",

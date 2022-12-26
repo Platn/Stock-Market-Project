@@ -12,7 +12,6 @@ void Stock::setStkSym(std::string symbol) {
 std::string Stock::getStkSym() const {
     return this->stkSym;
 }
-
 void Stock::addBuy(Buyer* newBuy) {
     this->bHead.addToList(newBuy);
 }
@@ -32,18 +31,29 @@ void Stock::setLastPrice(int price) {
 int Stock::getLastPrice() const {
     return this->lastPrice;
 }
-
 void Stock::rmvBuy(Buyer* buyer) {
     this->bHead.rmvFrmList(buyer);
 }
 void Stock::rmvSell(Seller* seller) {
     this->sHead.rmvFrmList(seller);
 }
-
+LinkedList<Buyer*> Stock::getBuyList() {
+    return this->bHead;
+}
+LinkedList<Seller*> Stock::getSellList() {
+    return this->sHead;
+}
 void Stock::printBuy() {
     this->bHead.print();
 }
-
 void Stock::printSell() {
     this->sHead.print();
+}
+std::string Stock::retBuyInfo() {
+    return this->bHead.retListInfo();
+}
+
+std::string Stock::retSellInfo() {
+    return this->sHead.retListInfo();
+
 }

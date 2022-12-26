@@ -6,6 +6,8 @@
 #include "offer.h"
 
 class Buyer : public Offer {
+    private:
+    std::string buyerName;
 	public:
 	Buyer(){}
 };
@@ -44,8 +46,17 @@ class Stock {
     void rmvBuy(Buyer*);
     void rmvSell(Seller*);
 
+    LinkedList<Buyer*> getBuyList();
+    LinkedList<Seller*> getSellList();
+
+    /*Used for debugging purposes*/
     void printBuy();
     void printSell();
+
+    std::string retBuyInfo();
+    std::string retSellInfo();
+
+
 };
 
 #endif // STOCK_H

@@ -40,6 +40,7 @@ template <typename T> class LinkedList {
     Node<T>* findNode(T);
     
     void print();
+    std::string retListInfo();
 
 };
 
@@ -242,16 +243,37 @@ template<typename T> inline void LinkedList<T>::rmvFrmList(T item) {
 }
 
 template <typename T> inline void LinkedList<T>::print() {
-    std::cout << "Print: " << std::endl;
+    std::cout << "Print:" << std::endl;
     Node<T>* travel = this->head;
     int i = 0;
     while(travel != NULL){
-        std::cout << "AccName: " << travel->data->getStkName() << std::endl;
+        std::cout << "StkName: " << travel->data->getStkName() << " CustName" 
+        << travel->data->getCustName() << std::endl;
         std::cout << "ID: " << travel->data->getID() << ": Price: " << travel->data->getPrice()
          << " Quantity: " << travel->data->getNumStks()  << std::endl;
         i++;
         travel = travel->nextNode;
     }
     std::cout << "I: " << i << std::endl;
+}
+
+template<typename T> inline std::string LinkedList<T>::retListInfo() {
+    std::string info = "";
+    std::cout << "Return Info" << std::endl;
+    Node<T>* travel = this->head;
+    info += "StockName,CustomerName,Price,Time,ID\n";
+    while(travel != NULL) {
+        info += travel->data->getStkName() + "," + travel->data->getCustName() + ","
+        + std::to_string(travel->data->getPrice()) + "," + std::to_string(travel->data->getTime()) 
+        + "," + std::to_string(travel->data->getID());
+        if (travel->nextNode == NULL) {
+            break;
+        } else {
+            info += "\n";
+            travel = travel->nextNode;
+        }
+    }
+
+    return info;
 }
 #endif

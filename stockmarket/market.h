@@ -23,9 +23,10 @@ class Market : public Account {
 
     void setAccName(std::string);
     std::string getAccName() const;
+    
 
     void addStock(Stock*);
-    // Stock* findStock(std::string);
+    // Stock* findStock(std::string); // This is already inside of account.cpp
 
     void incOfferNum();
     int getOfferNum();

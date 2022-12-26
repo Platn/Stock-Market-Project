@@ -15,7 +15,35 @@ int convStrDecToInt(std::string input) {
 	return convInt;
 }
 
-void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
+void writeMarketFile(Market* stkMkt,std::string stkSym, std::string fileDir) {
+	// Ideally we would want this to be more diverse in its writing but we need to narrow it down for now.
+	// It will have only write the stkSym of the single, maybe later we can work on this to make it
+	// write out all sorts of files. It might even check for which stocks are empty or not and print
+	// the ones that aren't? We can work on that later.
+
+	/* Code will check to see if the file exists, if it does, it will open it. Otherwise create it.*/
+	std::fstream file;
+	file.open(fileDir,std::ios::out | std::ios::trunc);
+	file.close();
+	file.open(fileDir,std::ios::in | std::ios::out | std::ios::trunc);
+
+	// file << "Writing to a file.\n";
+	Stock* stkInfo = stkMkt->findStock(stkSym);
+	LinkedList<Buyer*> buyList = stkInfo->getBuyList(); // Use this to print out buy list;
+	LinkedList<Seller*> sellList = stkInfo->getSellList();
+
+	std::string outputBuy = stkInfo->retBuyInfo();
+	std::string outputSell = stkInfo->retSellInfo();
+
+	std::cout << outputBuy << std::endl;
+	file << outputBuy;
+
+	stkInfo = NULL;
+	file.close(); // Always remember to close the file when done.
+	
+}
+
+void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	/* Actual RNG Algorithm*/
 	// std::random_device rd;
 	// std::mt19937 gen(rd());
@@ -26,16 +54,16 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 	/* Controlled Algorithm */
 	// int range = max - min + 1;
 	// int num = rand() % range + min;
-	int stkRange = symPrice->size() - 0 + 1;
+	int stkRange = symPrices->size() - 0 + 1;
 	int stkNum = rand() % stkRange + 0;
-	std::string currSym = symPrice->at(stkNum)->getStkSym();
+	std::string currSym = symPrices->at(stkNum)->getStkSym();
 	// std::cout << "Symbol: " << currSym << std::endl;
 	int offerRange = 10000 - 100 + 1;
 	int offerNum = rand() % offerRange + 100;
 	// std::cout <<  "Number of Offers: " << offerNum << std::endl;
 	
-	int accRange = 10 - 3 + 1;
-	int accNum = rand() % accRange + 0;
+	int accRange = 15 - 3 + 1;
+	int accNum = (rand() % accRange) + 1;
 	// std::cout << "Number of Accounts: " << accNum << std::endl;
 
 	// std::cout << "Producing accounts..." << std::endl;
@@ -57,37 +85,51 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 	/* Distribute the number of values*/
 	int bidPrice;
 	
-	int origPrice = symPrice->at(stkNum)->getLastPrice();
+	int origPrice = symPrices->at(stkNum)->getLastPrice();
 	int priceRange = origPrice - 1 + 1;
 	Buyer* prodBuy;
 	Seller* prodSell;
-	int rndAcc;
-	int rndAccRange;
+	int rndTimeRange;
+	int rndTime;
+	int rndNumAccRange;
+	int rndNumAcc;
 	
 	for(int i = 0; i <= offerNum; i++) { // Percent price changes
 		// We need the price distribution for each of the stocks
 		prodBuy = new Buyer();
 		prodSell = new Seller();
 
+		// int rndBSRange = 2;
+		// int rndBS = (rand() % rndBSRange) + 1;
+		
+
 		bidPrice = (origPrice + (rand() % priceRange)/2);;
 		prodBuy->setStkName(currSym);
 		prodBuy->setPrice(bidPrice);
 		prodBuy->setID(stkMkt->getOfferNum());
-		prodBuy->setTime(0); // Preloaded Examples
+
+
+		rndTimeRange = 60; // Trade per minute or hour, some interval.
+		rndTime = (rand() % rndTimeRange);
+		prodBuy->setTime(rndTime); // Preloaded Examples
 		prodBuy->setNumStks((rand() % 500) + 1);
 
 		bidPrice = (origPrice + (rand() % priceRange)/2);
 		prodSell->setStkName(currSym);
 		prodSell->setPrice(bidPrice);
 		prodSell->setID(stkMkt->getOfferNum());
-		prodSell->setTime(0); // Preloaded Examples
+		prodSell->setTime(rndTime); // Preloaded Examples
 		prodSell->setNumStks((rand() % 500) + 1);
 
 		// Add to each Customer Account, used for debugging
-		rndAccRange = cstrList.size() - 1 - 0 + 1;
-		rndAcc = rand() % rndAccRange + 0;
-		cstrList.at(rndAcc)->addBOffer(prodBuy->getStkName(), prodBuy);
-		cstrList.at(rndAcc)->addSOffer(prodSell->getStkName(), prodSell);
+		rndNumAccRange = cstrList.size();
+		rndNumAcc = rand() % rndNumAccRange;
+		prodBuy->setCustName("Customer" + std::to_string(rndNumAcc));
+		
+		cstrList.at(rndNumAcc)->addBOffer(prodBuy->getStkName(), prodBuy);
+		prodSell->setCustName("Customer");
+		rndNumAcc = rand() % rndNumAccRange;
+		cstrList.at(rndNumAcc)->addSOffer(prodSell->getStkName(), prodSell);
 
 		// Add to (Stock)Market
 		stkMkt->addBOffer(currSym, prodBuy);
@@ -104,6 +146,8 @@ void genRandOffer(std::vector<Stock*>* symPrice, Market* stkMkt) {
 	
 	stkMkt->findStock(currSym)->printBuy();
 	stkMkt->findStock(currSym)->printSell();
+
+	writeMarketFile(stkMkt,currSym, "test.txt");
 
 	newCustomer = NULL;
 	cstrList.empty();
@@ -164,8 +208,6 @@ int main() {
 	// We need to create the random number generator now. 
 	srand(1);
 	genRandOffer(symPrice, stkMkt);
-	
-	
 
 	return 0;
 }

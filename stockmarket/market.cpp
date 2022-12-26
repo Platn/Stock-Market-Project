@@ -62,7 +62,7 @@ void Market::addCustomer(Customer* customer) {
 Customer* Market::getCustomer(std::string accName) {
     auto search = this->customList.find(accName);
     // std::cout << "Inside Market Get Customer: " << std::endl;
-    std::cout << accName;
+    std::cout << "Searching for: " << accName << std::endl;
     if(search != this->customList.end()){
         // std::cout << " was found." << std::endl;
         return search->second;

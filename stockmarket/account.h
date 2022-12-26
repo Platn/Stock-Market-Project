@@ -24,7 +24,6 @@ class Account {
     void rmvSOffer(std::string, Seller*);
 
     Stock* findStock(std::string);
-
 };
 
 #endif
