@@ -64,7 +64,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	
 	int accRange = 15 - 3 + 1;
 	int accNum = (rand() % accRange) + 1;
-	// std::cout << "Number of Accounts: " << accNum << std::endl;
+	std::cout << "Number of Accounts: " << accNum << std::endl;
 
 	// std::cout << "Producing accounts..." << std::endl;
 	Customer* newCustomer;
@@ -79,6 +79,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 		// std::cout << "NewCustomer: " << newCustomer->getAccName() << std::endl;
 		stkMkt->addCustomer(newCustomer);
 		cstrList.push_back(newCustomer);
+		newCustomer = NULL;
 		// std::cout << stkMkt->getCustomer(fullName)->getAccName() << std::endl;
 	}
 
@@ -99,43 +100,44 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 		prodBuy = new Buyer();
 		prodSell = new Seller();
 
-		// int rndBSRange = 2;
-		// int rndBS = (rand() % rndBSRange) + 1;
-		
+		int rndBSRange = 2;
+		int rndBS = (rand() % rndBSRange);
 
-		bidPrice = (origPrice + (rand() % priceRange)/2);;
-		prodBuy->setStkName(currSym);
-		prodBuy->setPrice(bidPrice);
-		prodBuy->setID(stkMkt->getOfferNum());
-
-
-		rndTimeRange = 60; // Trade per minute or hour, some interval.
-		rndTime = (rand() % rndTimeRange);
-		prodBuy->setTime(rndTime); // Preloaded Examples
-		prodBuy->setNumStks((rand() % 500) + 1);
-
-		bidPrice = (origPrice + (rand() % priceRange)/2);
-		prodSell->setStkName(currSym);
-		prodSell->setPrice(bidPrice);
-		prodSell->setID(stkMkt->getOfferNum());
-		prodSell->setTime(rndTime); // Preloaded Examples
-		prodSell->setNumStks((rand() % 500) + 1);
-
-		// Add to each Customer Account, used for debugging
-		rndNumAccRange = cstrList.size();
+		rndNumAccRange = cstrList.size() - 1;
 		rndNumAcc = rand() % rndNumAccRange;
-		prodBuy->setCustName("Customer" + std::to_string(rndNumAcc));
 		
-		cstrList.at(rndNumAcc)->addBOffer(prodBuy->getStkName(), prodBuy);
-		prodSell->setCustName("Customer");
-		rndNumAcc = rand() % rndNumAccRange;
-		cstrList.at(rndNumAcc)->addSOffer(prodSell->getStkName(), prodSell);
-
-		// Add to (Stock)Market
-		stkMkt->addBOffer(currSym, prodBuy);
-		stkMkt->addSOffer(currSym, prodSell);
-		prodBuy = NULL;
-		prodSell = NULL;
+		// std::cout << "RndNumAcc: " << (rndNumAcc % rndNumAccRange) << std::endl;
+		switch(rndBS) {
+			case 0:
+				bidPrice = (origPrice + (rand() % priceRange)/2);;
+				prodBuy->setStkName(currSym);
+				prodBuy->setPrice(bidPrice);
+				prodBuy->setID(stkMkt->getOfferNum());
+				rndTimeRange = 60; // Trade per minute or hour, some interval.
+				rndTime = (rand() % rndTimeRange);
+				prodBuy->setTime(rndTime); // Preloaded Examples
+				prodBuy->setNumStks((rand() % 500) + 1);
+				prodBuy->setCustName("Customer" + std::to_string(rndNumAcc));
+				cstrList.at(rndNumAcc)->addBOffer(prodBuy->getStkName(), prodBuy);
+				stkMkt->addBOffer(currSym, prodBuy);
+				prodBuy = NULL;
+				break;
+			case 1:
+				bidPrice = (origPrice + (rand() % priceRange)/2);
+				prodSell->setStkName(currSym);
+				prodSell->setPrice(bidPrice);
+				prodSell->setID(stkMkt->getOfferNum());
+				prodSell->setTime(rndTime); // Preloaded Examples
+				prodSell->setNumStks((rand() % 500) + 1);
+				prodSell->setCustName("Customer");
+				cstrList.at(rndNumAcc)->addSOffer(prodSell->getStkName(), prodSell);
+				stkMkt->addSOffer(currSym, prodSell);
+				prodSell = NULL;
+				break;
+			// default:
+			// 	std::cout << "Error. Beyond range." << std::endl;
+			// 	break;
+		}	
 	}
 	
 	// We need to check both cstrlist and stkMarket, below is the debugging to check
@@ -144,8 +146,8 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	// 	cstrList.at(i)->findStock(currSym)->printSell();
 	// }
 	
-	stkMkt->findStock(currSym)->printBuy();
-	stkMkt->findStock(currSym)->printSell();
+	// stkMkt->findStock(currSym)->printBuy();
+	// stkMkt->findStock(currSym)->printSell();
 
 	writeMarketFile(stkMkt,currSym, "test.txt");
 
@@ -156,10 +158,6 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 int main() {
 	std::cout << "Stock Market Initiating" << std::endl;
 	std::cout << "Creating Stock Market account now...\n";
-	Offer newOffer;
-	Buyer newBuy;
-	std::cout << "NewAcc: " << std::to_string(newBuy.getNumStks()) << std::endl;
-	newBuy.setNumStks(1);
 
 	std::string fileName = "./nasdaq_Dec16_2022.csv";
 	std::cout << "Reading from file: " << fileName << "..." << std::endl;
