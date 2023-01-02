@@ -44,6 +44,8 @@ template <typename T> class LinkedList {
     void addToList(T);
     void addToListMax(T);
     void addToListMin(T);
+    void addToListTimeMax(T);
+    void addToListTimeMin(T);
     void rmvFrmList(T);
     Node<T>* findNode(T);
     
@@ -52,30 +54,33 @@ template <typename T> class LinkedList {
 
 };
 
-
-
 template <typename T> LinkedList<T>::LinkedList(){}
 template <typename T> LinkedList<T>::LinkedList(T item){
     this->head = new Node<T>(item);
     this->tail = head;
 }
+/* addToList() is used for the standard output. It will cre*/
 template <typename T> void LinkedList<T>::addToList(T item) {
-    Node<T>* travel = this->head;
+    Node<T>* travel = this->tail;
 
-    if (travel == NULL) {
+    if (this->tail == NULL) { // Assuming that tail is set to head. There should only be one time it is null, pointed at head
         this->head = new Node<T>(item);
+        tail = this->head;
         return;
     }
 
     while(true) {
-        if(travel->nextNode == NULL) {
-            travel->nextNode = new Node<T>(item);
+        if(travel->nextNode == NULL) { // This check may not be necessary.
+            // travel->nextNode = new Node<T>(item);
+            tail->nextNode = new Node<T>(item);
+            tail = tail->nextNode;
             return;
         }
         travel = travel->nextNode;
     }
 }
-template <typename T> void LinkedList<T>::addToListMax(T item){
+
+template<typename T> void LinkedList<T>::addToListMax(T item){
     Node<T>* newNode = new Node<T>(item);
     Node<T>* travel = this->head;
 
@@ -84,6 +89,7 @@ template <typename T> void LinkedList<T>::addToListMax(T item){
         return;
     } else if (newNode->data->getPrice() < travel->data->getPrice()) {
         newNode->nextNode = this->head;
+        this->head = newNode;
         return;
     } else if (newNode->data->getPrice() == travel->data->getPrice()) {
         Node<T>* qTravel = travel;
@@ -229,7 +235,21 @@ template<typename T> inline void LinkedList<T>::addToListMin(T item) {
         }
         travel = travel->nextNode;
     }
+}
+
+template<typename T> inline void LinkedList<T>::addToListTimeMax(T item) {
     
+
+    
+}
+
+template<typename T> inline void LinkedList<T>::addToListTimeMin(T item) {
+    std::cout << "addToListTimeMin" << std:: endl;
+    Node<T>* newNode(item);
+    Node<T>* travel = this->head;
+
+    
+
 }
 
 template<typename T> inline void LinkedList<T>::rmvFrmList(T item) {

@@ -37,6 +37,7 @@ void writeMarketFile(Market* stkMkt,std::string stkSym, std::string fileDir) {
 
 	// std::cout << outputBuy << std::endl;
 	// std::cout << outputSell << std::endl;
+	std::cout << "Writing to: " << fileDir << std::endl;
 	file << "List of Buyers: ";
 	file << outputBuy;
 	file << "\n\n";
@@ -44,10 +45,11 @@ void writeMarketFile(Market* stkMkt,std::string stkSym, std::string fileDir) {
 	file << outputSell;
 
 	stkInfo = NULL;
-	std::cout << "Write Market to file complete." << std::endl;
+	std::cout << "Closing file: " << fileDir << std::endl;
 	file.close(); // Always remember to close the file when done.
 	
 }
+
 void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	/* Actual RNG Algorithm*/
 	// std::random_device rd;
@@ -187,6 +189,12 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 
 	newCustomer = NULL;
 	cstrList.empty();
+}
+
+void displayMenu() {
+	std::cout << "1. " << std::endl;
+	std::cout << "2. " << std::endl;
+	std::cout << "3. " << std::endl;
 }
 
 int main() {
