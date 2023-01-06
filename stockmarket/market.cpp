@@ -13,7 +13,7 @@ void Market::addBOffer(std::string stkSym, Buyer* bOffer){
     auto search = this->stkMap.find(stkSym);
     if (search != this->stkMap.end()) {
         // std::cout << "Adding sell offer" << std::endl;
-        search->second->addBuy(bOffer);
+        search->second->addBuyMax(bOffer);
         return;
     }
     // std::cout << "AddSOffer not found" << std::endl;

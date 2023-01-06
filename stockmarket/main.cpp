@@ -158,17 +158,17 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 				break;
 			case 3:
 				bidPrice = (origPrice - (rand() % priceRange)/4);;
-				prodBuy->setStkName(currSym);
-				prodBuy->setPrice(bidPrice);
-				prodBuy->setID(stkMkt->getOfferNum());
+				prodSell->setStkName(currSym);
+				prodSell->setPrice(bidPrice);
+				prodSell->setID(stkMkt->getOfferNum());
 				rndTimeRange = 60; // Trade per minute or hour, some interval.
 				rndTime = (rand() % rndTimeRange);
-				prodBuy->setTime(rndTime); // Preloaded Examples
-				prodBuy->setNumStks((rand() % 500) + 1);
-				prodBuy->setCustName("Customer" + std::to_string(rndNumAcc));
-				cstrList.at(rndNumAcc)->addBOffer(prodBuy->getStkName(), prodBuy);
-				stkMkt->addBOffer(currSym, prodBuy);
-				prodBuy = NULL;
+				prodSell->setTime(rndTime); // Preloaded Examples
+				prodSell->setNumStks((rand() % 500) + 1);
+				prodSell->setCustName("Customer" + std::to_string(rndNumAcc));
+				cstrList.at(rndNumAcc)->addSOffer(prodSell->getStkName(), prodSell);
+				stkMkt->addSOffer(currSym, prodSell);
+				prodSell = NULL;
 				break;
 			// default:
 			// 	std::cout << "Error. Beyond range." << std::endl;
@@ -185,7 +185,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	// stkMkt->findStock(currSym)->printBuy();
 	// stkMkt->findStock(currSym)->printSell();
 
-	writeMarketFile(stkMkt,currSym, "test.txt");
+	writeMarketFile(stkMkt,currSym, "test.csv");
 
 	newCustomer = NULL;
 	cstrList.empty();

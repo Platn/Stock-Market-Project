@@ -19,7 +19,7 @@ void Stock::addSell(Seller* newSale) {
     this->sHead.addToList(newSale);
 }
 void Stock::addBuyMax(Buyer* newBuy) {
-    this->bHead.addToListMax(newBuy);
+    this->bHead.addToListTimeMax(newBuy);
 }
 void Stock::addSellMin(Seller* newSale) {
     this->sHead.addToListMax(newSale);
