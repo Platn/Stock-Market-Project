@@ -325,14 +325,14 @@ template<typename T> inline void LinkedList<T>::addToListTimeMax(T item) {
                    
                 } // Otherwise it will just break out from here.
             } else if (newNode->data->getPrice() > travel->nextNode->data->getPrice()) {
-                std::cout << "Price >" << std::endl;
+                // std::cout << "Price >" << std::endl;
                 newNode->nextNode = travel->nextNode;
                 travel->nextNode = NULL;
                 travel->nextNode = newNode;
                 return;
             }
         } else if (newNode->data->getTime() < travel->nextNode->data->getTime()) {
-            std::cout << "Time <" << std::endl;
+            // std::cout << "Time <" << std::endl;
             newNode->nextNode = travel->nextNode;
             travel->nextNode = NULL;
             travel->nextNode = newNode;
@@ -343,7 +343,7 @@ template<typename T> inline void LinkedList<T>::addToListTimeMax(T item) {
 }
 
 template<typename T> inline void LinkedList<T>::rmvFrmList(T item) {
-    std::cout << "rmvFromList: " << std::endl;
+    // std::cout << "rmvFromList: " << std::endl;
     Node<T>* travel = this->head;
     Node<T>* prev = travel;
     
@@ -361,7 +361,7 @@ template<typename T> inline void LinkedList<T>::rmvFrmList(T item) {
 }
 
 template <typename T> inline void LinkedList<T>::print() {
-    std::cout << "Print:" << std::endl;
+    // std::cout << "Print:" << std::endl;
     Node<T>* travel = this->head;
     int i = 0;
     while(travel != NULL){

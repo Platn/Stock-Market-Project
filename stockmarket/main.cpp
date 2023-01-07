@@ -192,7 +192,8 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 }
 
 void displayMenu() {
-	std::cout << "1. " << std::endl;
+	std::cout << "Select from the following options" << std::endl;
+	std::cout << "1. Random " << std::endl;
 	std::cout << "2. " << std::endl;
 	std::cout << "3. " << std::endl;
 }
