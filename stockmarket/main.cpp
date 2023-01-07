@@ -15,39 +15,42 @@ int convStrDecToInt(std::string input) {
 	return convInt;
 }
 
-void writeMarketFile(Market* stkMkt,std::string stkSym, std::string fileDir) {
+void writeMarketFile(Market* stkMkt,std::string stkSym, std::string buyFileDir, std::string sellFileDir) {
 	// Ideally we would want this to be more diverse in its writing but we need to narrow it down for now.
 	// It will have only write the stkSym of the single, maybe later we can work on this to make it
 	// write out all sorts of files. It might even check for which stocks are empty or not and print
 	// the ones that aren't? We can work on that later.
 
 	/* Code will check to see if the file exists, if it does, it will open it. Otherwise create it.*/
-	std::fstream file;
-	file.open(fileDir,std::ios::out | std::ios::trunc);
-	file.close();
-	file.open(fileDir,std::ios::in | std::ios::out | std::ios::trunc);
+	std::fstream buyFile;
+	std::fstream sellFile;
+	buyFile.open(buyFileDir,std::ios::out | std::ios::trunc);
+	buyFile.close();
+	buyFile.open(buyFileDir,std::ios::in | std::ios::out | std::ios::trunc);
 
+	sellFile.open(sellFileDir,std::ios::out | std::ios::trunc);
+	sellFile.close();
+	sellFile.open(sellFileDir,std::ios::in | std::ios::out | std::ios::trunc);
 	// file << "Writing to a file.\n";
 	Stock* stkInfo = stkMkt->findStock(stkSym);
 	// LinkedList<Buyer*> buyList = stkInfo->getBuyList(); // Use this to print out buy list;
 	// LinkedList<Seller*> sellList = stkInfo->getSellList();
 
 	std::string outputBuy = stkInfo->retBuyInfo();
-	std::string outputSell = stkInfo->retSellInfo();
-
+	
 	// std::cout << outputBuy << std::endl;
 	// std::cout << outputSell << std::endl;
-	std::cout << "Writing to: " << fileDir << std::endl;
-	file << "List of Buyers: ";
-	file << outputBuy;
-	file << "\n\n";
-	file << "List of Sellers: ";
-	file << outputSell;
-
+	std::cout << "Writing to: " << buyFileDir << std::endl;
+	buyFile << outputBuy;
+	std::cout << "Closing File: " << buyFileDir << std::endl;
+	buyFile.close();
 	stkInfo = NULL;
-	std::cout << "Closing file: " << fileDir << std::endl;
-	file.close(); // Always remember to close the file when done.
 	
+	std::string outputSell = stkInfo->retSellInfo();
+	std::cout << "Writing to: " << sellFileDir << std::endl;
+	sellFile << outputSell;
+	std::cout << "Closing file: " << sellFileDir << std::endl;
+	stkInfo = NULL;
 }
 
 void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
@@ -65,7 +68,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	int stkNum = rand() % stkRange;
 	std::string currSym = symPrices->at(stkNum)->getStkSym();
 	// std::cout << "Symbol: " << currSym << std::endl;
-	int offerRange = 1000000 - 100 + 1;
+	int offerRange = 100000 - 100 + 1;
 	int offerNum = rand() % offerRange + 100;
 	// std::cout <<  "Number of Offers: " << offerNum << std::endl;
 	
@@ -105,8 +108,6 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	
 	for(int i = 0; i <= offerNum; i++) { // Percent price changes
 		// We need the price distribution for each of the stocks
-		prodBuy = new Buyer();
-		prodSell = new Seller();
 
 		int rndBSRange = 4;
 		int rndBS = (rand() % rndBSRange);
@@ -117,6 +118,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 		// std::cout << "RndNumAcc: " << (rndNumAcc % rndNumAccRange) << std::endl;
 		switch(rndBS) {
 			case 0:
+				prodBuy = new Buyer();
 				bidPrice = (origPrice + (rand() % priceRange)/2);;
 				prodBuy->setStkName(currSym);
 				prodBuy->setPrice(bidPrice);
@@ -131,6 +133,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 				prodBuy = NULL;
 				break;
 			case 1:
+				prodSell = new Seller();
 				bidPrice = (origPrice + (rand() % priceRange)/2);
 				prodSell->setStkName(currSym);
 				prodSell->setPrice(bidPrice);
@@ -143,6 +146,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 				prodSell = NULL;
 				break;
 			case 2:
+				prodBuy = new Buyer();
 				bidPrice = (origPrice - (rand() % priceRange)/4);;
 				prodBuy->setStkName(currSym);
 				prodBuy->setPrice(bidPrice);
@@ -157,6 +161,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 				prodBuy = NULL;
 				break;
 			case 3:
+				prodSell = new Seller();
 				bidPrice = (origPrice - (rand() % priceRange)/4);;
 				prodSell->setStkName(currSym);
 				prodSell->setPrice(bidPrice);
@@ -185,7 +190,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	// stkMkt->findStock(currSym)->printBuy();
 	// stkMkt->findStock(currSym)->printSell();
 
-	writeMarketFile(stkMkt,currSym, "test.csv");
+	writeMarketFile(stkMkt,currSym, "buytest.csv","selltest.csv");
 
 	newCustomer = NULL;
 	cstrList.empty();
