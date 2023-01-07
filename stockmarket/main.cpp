@@ -65,7 +65,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 	int stkNum = rand() % stkRange;
 	std::string currSym = symPrices->at(stkNum)->getStkSym();
 	// std::cout << "Symbol: " << currSym << std::endl;
-	int offerRange = 10000 - 100 + 1;
+	int offerRange = 1000000 - 100 + 1;
 	int offerNum = rand() % offerRange + 100;
 	// std::cout <<  "Number of Offers: " << offerNum << std::endl;
 	

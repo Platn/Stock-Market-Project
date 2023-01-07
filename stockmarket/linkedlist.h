@@ -249,11 +249,11 @@ template<typename T> inline void LinkedList<T>::addToListTimeMax(T item) {
     // Just the head in the if statement below.
     
     if (newNode->data->getTime() == travel->data->getTime()) {
-        std::cout << "Time Head ==" << std::endl;
+        // std::cout << "Time Head ==" << std::endl;
         if(newNode->data->getPrice() == travel->data->getPrice()) {
-            std::cout << "Price Head ==" << std::endl;
+            // std::cout << "Price Head ==" << std::endl;
             if(newNode->data->getNumStks() >= travel->data->getNumStks()) {
-                std::cout << "Num Stks ==" << std::endl;
+                // std::cout << "Num Stks ==" << std::endl;
                 newNode->nextNode = this->head;
                 this->head = newNode;
                 return;
@@ -262,12 +262,12 @@ template<typename T> inline void LinkedList<T>::addToListTimeMax(T item) {
                 while(true) {
                     if (stkTrav->nextNode == NULL) {
                         stkTrav->nextNode = newNode;
-                        std::cout << "Head NULL" << std::endl;
+                        // std::cout << "Head NULL" << std::endl;
                         return;
                     } else if (newNode->data->getTime() == stkTrav->nextNode->data->getTime() &&
                     newNode->data->getPrice() == stkTrav->nextNode->data->getPrice() &&
                     newNode->data->getNumStks() > stkTrav->nextNode->data->getNumStks()) {
-                        std::cout << "" << std::endl;
+                        // std::cout << "" << std::endl;
                         newNode->nextNode = stkTrav->nextNode;
                         stkTrav->nextNode = NULL;
                         stkTrav->nextNode = newNode;
@@ -290,15 +290,15 @@ template<typename T> inline void LinkedList<T>::addToListTimeMax(T item) {
     } // If it is greater than time, then we need to move to the next node.
     while(true) {
         if (travel->nextNode == NULL) { // If travel->nextNode is NULL, not including head
-            std::cout << "NULL" << std::endl;
+            // std::cout << "NULL" << std::endl;
             travel->nextNode = newNode;
             return;
         } else if (newNode->data->getTime() == travel->nextNode->data->getTime()) {
-            std::cout << "Time ==" << std::endl;
+            // std::cout << "Time ==" << std::endl;
             if(newNode->data->getPrice() == travel->nextNode->data->getPrice()) {
-                std::cout << "Price ==" << std::endl;
+                // std::cout << "Price ==" << std::endl;
                 if(newNode->data->getNumStks() >= travel->nextNode->data->getNumStks()) {
-                    std::cout << "Stock >=" << std::endl;
+                    // std::cout << "Stock >=" << std::endl;
                     newNode->nextNode = travel->nextNode;
                     travel->nextNode = NULL;
                     travel->nextNode = newNode;
@@ -309,12 +309,12 @@ template<typename T> inline void LinkedList<T>::addToListTimeMax(T item) {
                     while(true) {
                         if (stkTrav->nextNode == NULL) {
                             stkTrav->nextNode = newNode;
-                            std::cout << "Head NULL" << std::endl;
+                            // std::cout << "Head NULL" << std::endl;
                             return;
                         } else if (newNode->data->getTime() == stkTrav->nextNode->data->getTime() &&
                         newNode->data->getPrice() == stkTrav->nextNode->data->getPrice() &&
                         newNode->data->getNumStks() > stkTrav->nextNode->data->getNumStks()) {
-                            std::cout << "" << std::endl;
+                            // std::cout << "Equal Greater" << std::endl;
                             newNode->nextNode = stkTrav->nextNode;
                             stkTrav->nextNode = NULL;
                             stkTrav->nextNode = newNode;
@@ -367,7 +367,7 @@ template <typename T> inline void LinkedList<T>::print() {
     while(travel != NULL){
         std::cout << "StkName: " << travel->data->getStkName() << " CustName" 
         << travel->data->getCustName() << std::endl;
-        std::cout << "ID: " << travel->data->getID() << ": Price: " << travel->data->getPrice()
+        std::cout << "OrderID: " << travel->data->getID() << ": Price: " << travel->data->getPrice()
          << " NumStks: " << travel->data->getNumStks()  << std::endl;
         i++;
         travel = travel->nextNode;
@@ -379,7 +379,7 @@ template<typename T> inline std::string LinkedList<T>::retListInfo() {
     std::string info = "";
     // std::cout << "Return Info" << std::endl; 
     Node<T>* travel = this->head;
-    info += "StockName,CustomerName,Price,NumStks,Time,ID\n";
+    info += "StockName,CustomerName,Price,NumStks,Time,OrderID\n";
     while(travel != NULL) {
         info += travel->data->getStkName() + "," + travel->data->getCustName() + ","
         + std::to_string(travel->data->getPrice()) + "," + std::to_string(travel->data->getNumStks()) 
