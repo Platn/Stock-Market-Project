@@ -37,19 +37,16 @@ void writeMarketFile(Market* stkMkt,std::string stkSym, std::string buyFileDir, 
 	// LinkedList<Seller*> sellList = stkInfo->getSellList();
 
 	std::string outputBuy = stkInfo->retBuyInfo();
-	
-	// std::cout << outputBuy << std::endl;
-	// std::cout << outputSell << std::endl;
 	std::cout << "Writing to: " << buyFileDir << std::endl;
 	buyFile << outputBuy;
 	std::cout << "Closing File: " << buyFileDir << std::endl;
 	buyFile.close();
-	stkInfo = NULL;
 	
 	std::string outputSell = stkInfo->retSellInfo();
 	std::cout << "Writing to: " << sellFileDir << std::endl;
 	sellFile << outputSell;
 	std::cout << "Closing file: " << sellFileDir << std::endl;
+	
 	stkInfo = NULL;
 }
 

@@ -18,11 +18,15 @@ void Stock::addBuy(Buyer* newBuy) {
 void Stock::addSell(Seller* newSale) {
     this->sHead.addToList(newSale);
 }
+
+// Edit this for the debugging buy offers
 void Stock::addBuyMax(Buyer* newBuy) {
     this->bHead.addToListTimeMax(newBuy);
 }
+
+// Edit this to change the sell offers
 void Stock::addSellMin(Seller* newSale) {
-    this->sHead.addToListMin(newSale);
+    this->sHead.addToListTimeMin(newSale);
 }
 
 void Stock::setLastPrice(int price) {

@@ -279,6 +279,7 @@ template<typename T> inline void LinkedList<T>::addToListTimeMax(T item) {
             } // Otherwise it will just break out from here.
         } else if (newNode->data->getPrice() > travel->data->getPrice()) {
             newNode->nextNode = this->head;
+            this->head = NULL;
             this->head = newNode;
             return;
         }
@@ -384,6 +385,7 @@ template<typename T> inline void LinkedList<T>::addToListTimeMin(T item) {
             } // Otherwise it will just break out from here.
         } else if (newNode->data->getPrice() < travel->data->getPrice()) {
             newNode->nextNode = this->head;
+            this->head = NULL;
             this->head = newNode;
             return;
         }
