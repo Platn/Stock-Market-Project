@@ -46,7 +46,7 @@ void writeMarketFile(Market* stkMkt,std::string stkSym, std::string buyFileDir, 
 	std::cout << "Writing to: " << sellFileDir << std::endl;
 	sellFile << outputSell;
 	std::cout << "Closing file: " << sellFileDir << std::endl;
-	
+
 	stkInfo = NULL;
 }
 
@@ -195,7 +195,7 @@ void genRandOffer(std::vector<Stock*>* symPrices, Market* stkMkt) {
 
 void displayMenu() {
 	std::cout << "Select from the following options" << std::endl;
-	std::cout << "1. Random " << std::endl;
+	std::cout << "1. Generate Random Values" << std::endl;
 	std::cout << "2. " << std::endl;
 	std::cout << "3. " << std::endl;
 }
